@@ -22,6 +22,7 @@ export default function WordCard({ word }: { word: WordSubmissionWithProfile }) 
           <img
             src={word.profiles.avatar_url}
             alt=""
+            referrerPolicy="no-referrer"
             className="h-5 w-5 rounded-full"
           />
         )}

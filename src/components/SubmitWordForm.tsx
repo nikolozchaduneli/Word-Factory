@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import { TARGET_LANG } from "@/lib/language";
 
 const LANGUAGES = [
   { value: "en", label: "English" },
@@ -30,8 +31,12 @@ export default function SubmitWordForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [foreignWord, setForeignWord] = useState("");
+  const [language, setLanguage] = useState("en");
+  const [definition, setDefinition] = useState("");
   const [similarWords, setSimilarWords] = useState<SimilarWord[]>([]);
   const [duplicateAcknowledged, setDuplicateAcknowledged] = useState(false);
+  const [dictSuggestions, setDictSuggestions] = useState<string[]>([]);
+  const [dictLoading, setDictLoading] = useState(false);
 
   const checkDuplicates = useCallback(async (word: string) => {
     if (word.length < 2) {
@@ -47,11 +52,66 @@ export default function SubmitWordForm() {
     }
   }, []);
 
+  const fetchDefinitions = useCallback(async (word: string, lang: string) => {
+    if (word.length < 2) {
+      setDictSuggestions([]);
+      return;
+    }
+
+    const langMap: Record<string, string> = {
+      en: "en",
+      de: "de",
+      fr: "fr",
+      es: "es",
+      it: "it",
+      pt: "pt",
+      ru: "ru",
+      ar: "ar",
+      tr: "tr",
+    };
+
+    const dictLang = langMap[lang];
+    if (!dictLang) {
+      setDictSuggestions([]);
+      return;
+    }
+
+    setDictLoading(true);
+    try {
+      const res = await fetch(
+        `https://api.dictionaryapi.dev/api/v2/entries/${dictLang}/${encodeURIComponent(word)}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const defs: string[] = [];
+        for (const entry of data) {
+          for (const meaning of entry.meanings ?? []) {
+            for (const def of meaning.definitions ?? []) {
+              if (def.definition && defs.length < 5) {
+                const prefix = meaning.partOfSpeech ? `(${meaning.partOfSpeech}) ` : "";
+                defs.push(prefix + def.definition);
+              }
+            }
+          }
+        }
+        setDictSuggestions(defs);
+      } else {
+        setDictSuggestions([]);
+      }
+    } catch {
+      setDictSuggestions([]);
+    }
+    setDictLoading(false);
+  }, []);
+
   useEffect(() => {
     setDuplicateAcknowledged(false);
-    const timeout = setTimeout(() => checkDuplicates(foreignWord), 400);
+    const timeout = setTimeout(() => {
+      checkDuplicates(foreignWord);
+      fetchDefinitions(foreignWord, language);
+    }, 400);
     return () => clearTimeout(timeout);
-  }, [foreignWord, checkDuplicates]);
+  }, [foreignWord, language, checkDuplicates, fetchDefinitions]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,9 +125,9 @@ export default function SubmitWordForm() {
 
     const formData = new FormData(e.currentTarget);
     const body = {
-      foreign_word: formData.get("foreign_word"),
-      source_language: formData.get("source_language"),
-      definition: formData.get("definition"),
+      foreign_word: foreignWord,
+      source_language: language,
+      definition,
       context_example: formData.get("context_example") || undefined,
     };
 
@@ -162,7 +222,8 @@ export default function SubmitWordForm() {
           id="source_language"
           name="source_language"
           required
-          defaultValue="en"
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
           className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400"
         >
           {LANGUAGES.map((lang) => (
@@ -184,9 +245,34 @@ export default function SubmitWordForm() {
           minLength={10}
           maxLength={1000}
           rows={4}
-          placeholder="Describe the meaning of this word or concept that currently has no Georgian equivalent..."
+          value={definition}
+          onChange={(e) => setDefinition(e.target.value)}
+          placeholder={TARGET_LANG.ui.submitPlaceholder}
           className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400"
         />
+
+        {dictLoading && (
+          <p className="mt-1 text-xs text-zinc-400">Looking up definition...</p>
+        )}
+
+        {dictSuggestions.length > 0 && !definition && (
+          <div className="mt-2 space-y-1">
+            <p className="text-xs text-zinc-500">Suggestions from dictionary:</p>
+            {dictSuggestions.map((def, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => {
+                  setDefinition(def);
+                  setDictSuggestions([]);
+                }}
+                className="block w-full rounded border border-zinc-200 bg-zinc-50 px-3 py-2 text-left text-xs text-zinc-700 transition-colors hover:border-zinc-400 hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:bg-zinc-700"
+              >
+                {def}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div>

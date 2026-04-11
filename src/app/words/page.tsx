@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import WordCard from "@/components/WordCard";
 import SearchBar from "@/components/SearchBar";
 import type { WordSubmissionWithProfile } from "@/types/database";
+import SortSelect from "@/components/SortSelect";
+import { TARGET_LANG } from "@/lib/language";
 import { Suspense } from "react";
 
 export default async function WordsPage({
@@ -21,7 +23,8 @@ export default async function WordsPage({
   let query = supabase
     .from("word_submissions")
     .select("*, profiles!inner(display_name, avatar_url)", { count: "exact" })
-    .eq("status", "approved");
+    .eq("status", "approved")
+    .eq("target_language", TARGET_LANG.code);
 
   if (search) {
     query = query.or(
@@ -60,13 +63,9 @@ export default async function WordsPage({
             <SearchBar />
           </Suspense>
         </div>
-        <select
-          defaultValue={sort}
-          className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
-        >
-          <option value="newest">Newest</option>
-          <option value="oldest">Oldest</option>
-        </select>
+        <Suspense>
+          <SortSelect />
+        </Suspense>
       </div>
 
       {!words || words.length === 0 ? (

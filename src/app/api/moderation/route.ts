@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
-import { flagSchema } from "@/lib/validators";
+import { flagSchema, moderationActionSchema } from "@/lib/validators";
 import { checkRateLimit, rateLimitResponse } from "@/lib/rate-limit";
+import { safeErrorResponse } from "@/lib/api-error";
 import { NextResponse } from "next/server";
 
 // POST: Report/flag content
@@ -48,7 +49,7 @@ export async function POST(request: Request) {
         { status: 409 }
       );
     }
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return safeErrorResponse(error, "moderation/POST");
   }
 
   return NextResponse.json(data, { status: 201 });
@@ -76,11 +77,22 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const { target_type, target_id, action } = await request.json();
+  const body = await request.json();
+  const parsed = moderationActionSchema.safeParse(body);
+
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Validation failed", issues: parsed.error.issues },
+      { status: 400 }
+    );
+  }
+
+  const { target_type, target_id, action } = parsed.data;
+  let updateError = null;
 
   if (target_type === "flag") {
     const status = action === "resolve" ? "resolved" : "dismissed";
-    await supabase
+    const { error } = await supabase
       .from("moderation_flags")
       .update({
         status,
@@ -88,19 +100,34 @@ export async function PATCH(request: Request) {
         resolved_at: new Date().toISOString(),
       })
       .eq("id", target_id);
+    updateError = error;
   } else if (target_type === "word_submission") {
     const status = action === "approve" ? "approved" : "rejected";
-    await supabase
+    const { error } = await supabase
       .from("word_submissions")
       .update({ status, updated_at: new Date().toISOString() })
       .eq("id", target_id);
+    updateError = error;
   } else if (target_type === "user_suggestion") {
     const status = action === "approve" ? "approved" : "rejected";
-    await supabase
+    const { error } = await supabase
       .from("user_suggestions")
       .update({ status })
       .eq("id", target_id);
+    updateError = error;
   }
+
+  if (updateError) {
+    return safeErrorResponse(updateError, "moderation/PATCH");
+  }
+
+  // Audit log
+  await supabase.from("audit_log").insert({
+    actor_id: user.id,
+    action,
+    target_type,
+    target_id,
+  });
 
   return NextResponse.json({ success: true });
 }

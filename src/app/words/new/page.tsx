@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { TARGET_LANG } from "@/lib/language";
 import SubmitWordForm from "@/components/SubmitWordForm";
 
 export default async function NewWordPage() {
@@ -16,8 +17,7 @@ export default async function NewWordPage() {
     <div className="mx-auto max-w-lg px-4 py-12">
       <h1 className="text-2xl font-bold mb-2">Submit a Word</h1>
       <p className="text-sm text-zinc-500 mb-8">
-        Submit a foreign word or concept that lacks a Georgian equivalent.
-        The community and AI will propose neologisms.
+        {TARGET_LANG.ui.submitPageDescription}
       </p>
       <SubmitWordForm />
     </div>

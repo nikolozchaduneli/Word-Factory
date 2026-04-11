@@ -57,7 +57,7 @@ CREATE TABLE ai_suggestions (
   etymology           TEXT NOT NULL,
   score               INT NOT NULL DEFAULT 0,
   tokens_used         INT NOT NULL DEFAULT 0,
-  model_version       TEXT NOT NULL DEFAULT 'claude-sonnet-4-20250514',
+  model_version       TEXT NOT NULL DEFAULT 'claude-opus-4-6',
   created_at          TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

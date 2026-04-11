@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { TARGET_LANG } from "@/lib/language";
 
 export default function ProposeForm({
   wordSubmissionId,
@@ -19,7 +20,7 @@ export default function ProposeForm({
         onClick={() => setOpen(true)}
         className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400"
       >
-        + Propose your own Georgian word
+        {TARGET_LANG.ui.proposeButton}
       </button>
     );
   }
@@ -60,7 +61,7 @@ export default function ProposeForm({
       onSubmit={handleSubmit}
       className="rounded-lg border border-zinc-200 bg-white p-4 space-y-3 dark:border-zinc-800 dark:bg-zinc-900"
     >
-      <h3 className="text-sm font-semibold">Propose a Georgian Word</h3>
+      <h3 className="text-sm font-semibold">{TARGET_LANG.ui.proposeHeading}</h3>
 
       {error && (
         <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
@@ -70,7 +71,7 @@ export default function ProposeForm({
         type="text"
         name="suggested_word"
         required
-        placeholder="Georgian word (in Georgian script)"
+        placeholder={TARGET_LANG.ui.proposePlaceholder}
         className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900"
       />
       <input

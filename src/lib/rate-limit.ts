@@ -8,7 +8,7 @@ type RateLimitResult = {
 
 const LIMITS: Record<string, { maxRequests: number; windowMinutes: number }> = {
   submission: { maxRequests: 10, windowMinutes: 60 },
-  ai_request: { maxRequests: 3, windowMinutes: 60 },
+  ai_request: { maxRequests: 20, windowMinutes: 60 },
   vote: { maxRequests: 60, windowMinutes: 1 },
   flag: { maxRequests: 5, windowMinutes: 60 },
 };
@@ -23,35 +23,33 @@ export async function checkRateLimit(
     return { allowed: true, remaining: 999, resetAt: new Date() };
   }
 
-  const windowStart = new Date(
-    Date.now() - config.windowMinutes * 60 * 1000
-  );
-
-  const { count } = await supabase
-    .from("rate_limits")
-    .select("*", { count: "exact", head: true })
-    .eq("user_id", userId)
-    .eq("action_type", actionType)
-    .gte("window_start", windowStart.toISOString());
-
-  const currentCount = count ?? 0;
-  const remaining = Math.max(0, config.maxRequests - currentCount);
   const resetAt = new Date(
-    windowStart.getTime() + config.windowMinutes * 60 * 1000
+    Date.now() + config.windowMinutes * 60 * 1000
   );
 
-  if (currentCount >= config.maxRequests) {
-    return { allowed: false, remaining: 0, resetAt };
-  }
-
-  // Record this request
-  await supabase.from("rate_limits").insert({
-    user_id: userId,
-    action_type: actionType,
-    window_start: new Date().toISOString(),
+  // Atomic check-and-record to prevent TOCTOU race condition
+  const { data, error } = await supabase.rpc("check_and_record_rate_limit", {
+    p_user_id: userId,
+    p_action_type: actionType,
+    p_max_requests: config.maxRequests,
+    p_window_minutes: config.windowMinutes,
   });
 
-  return { allowed: true, remaining: remaining - 1, resetAt };
+  if (error || !data || data.length === 0) {
+    // On RPC failure, fail open but log the error
+    console.error("[rate-limit] RPC failed:", error?.message);
+    return { allowed: true, remaining: 0, resetAt };
+  }
+
+  const result = data[0];
+  const currentCount = Number(result.current_count);
+  const remaining = Math.max(0, config.maxRequests - currentCount);
+
+  return {
+    allowed: result.allowed,
+    remaining: result.allowed ? remaining - 1 : 0,
+    resetAt,
+  };
 }
 
 export function rateLimitResponse(resetAt: Date) {

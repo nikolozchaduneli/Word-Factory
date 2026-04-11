@@ -1,33 +1,36 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function SearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("search") ?? "");
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
+  const handleChange = (value: string) => {
+    setQuery(value);
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
       const params = new URLSearchParams(searchParams.toString());
-      if (query) {
-        params.set("search", query);
+      if (value) {
+        params.set("search", value);
         params.delete("page");
       } else {
         params.delete("search");
       }
       router.push(`/words?${params.toString()}`);
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [query, router, searchParams]);
+    }, 400);
+  };
 
   return (
     <input
       type="text"
       value={query}
-      onChange={(e) => setQuery(e.target.value)}
+      onChange={(e) => handleChange(e.target.value)}
       placeholder="Search words or definitions..."
       className="w-full rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:focus:border-zinc-400"
     />

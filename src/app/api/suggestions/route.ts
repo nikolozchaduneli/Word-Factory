@@ -35,7 +35,11 @@ export async function POST(request: Request) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("[API:suggestions/POST]", error.message);
+    return NextResponse.json(
+      { error: "An internal error occurred. Please try again later." },
+      { status: 500 }
+    );
   }
 
   return NextResponse.json(data, { status: 201 });

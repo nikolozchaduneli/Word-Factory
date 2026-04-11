@@ -59,6 +59,7 @@ export default function AuthButton() {
           <img
             src={user.user_metadata.avatar_url}
             alt=""
+            referrerPolicy="no-referrer"
             className="h-8 w-8 rounded-full"
           />
         )}

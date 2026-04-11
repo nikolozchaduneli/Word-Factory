@@ -6,7 +6,12 @@ export async function POST(request: Request) {
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
 
-  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
+  if (!cronSecret || cronSecret.length < 32) {
+    console.error("[CRON] CRON_SECRET is missing or too short (min 32 chars)");
+    return NextResponse.json({ error: "Server misconfiguration" }, { status: 500 });
+  }
+
+  if (authHeader !== `Bearer ${cronSecret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -22,7 +27,11 @@ export async function POST(request: Request) {
     .gte("tokens_used_today", 1); // Only update users who actually used tokens
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("[CRON] daily-reset failed:", error.message);
+    return NextResponse.json(
+      { error: "An internal error occurred. Please try again later." },
+      { status: 500 }
+    );
   }
 
   // Clean up old rate limit entries (older than 24 hours)

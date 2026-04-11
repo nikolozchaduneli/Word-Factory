@@ -1,9 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import type { WordSubmission, Profile, AiSuggestion, Vote } from "@/types/database";
-import SuggestionCard from "@/components/SuggestionCard";
-import GenerateButton from "@/components/GenerateButton";
-import VoteButtons from "@/components/VoteButtons";
+import SuggestionsSection from "@/components/SuggestionsSection";
 import ProposeForm from "@/components/ProposeForm";
 
 type WordWithProfile = WordSubmission & {
@@ -38,7 +36,6 @@ export default async function WordDetailPage({
     notFound();
   }
 
-  // Fetch user's votes for these suggestions
   let userVotes: Record<string, number> = {};
   if (user && suggestions && suggestions.length > 0) {
     const { data: votes } = await supabase
@@ -47,18 +44,18 @@ export default async function WordDetailPage({
       .eq("user_id", user.id)
       .in(
         "suggestion_id",
-        suggestions.map((s) => s.id)
+        suggestions.map((s) => s.id),
       )
       .returns<Pick<Vote, "suggestion_id" | "vote_type">[]>();
 
     if (votes) {
       userVotes = Object.fromEntries(
-        votes.map((v) => [v.suggestion_id, v.vote_type])
+        votes.map((v) => [v.suggestion_id, v.vote_type]),
       );
     }
   }
 
-  const canGenerate = !!user && (suggestions?.length ?? 0) < 10;
+  const canGenerate = !!user && (suggestions?.length ?? 0) < 30;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
@@ -105,6 +102,7 @@ export default async function WordDetailPage({
             <img
               src={word.profiles.avatar_url}
               alt=""
+              referrerPolicy="no-referrer"
               className="h-6 w-6 rounded-full"
             />
           )}
@@ -114,48 +112,13 @@ export default async function WordDetailPage({
         </div>
       </div>
 
-      <section className="mt-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">
-            Georgian Suggestions ({suggestions?.length ?? 0})
-          </h2>
-          {canGenerate && <GenerateButton wordSubmissionId={word.id} />}
-        </div>
-
-        {!suggestions || suggestions.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-zinc-300 p-8 text-center dark:border-zinc-700">
-            <p className="text-zinc-500 mb-3">
-              No suggestions yet.
-            </p>
-            {canGenerate && (
-              <GenerateButton wordSubmissionId={word.id} />
-            )}
-            {!user && (
-              <p className="text-sm text-zinc-400 mt-2">
-                <a href="/login" className="underline">Sign in</a> to generate AI suggestions
-              </p>
-            )}
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {suggestions.map((sug) => (
-              <SuggestionCard key={sug.id} suggestion={sug}>
-                {user ? (
-                  <VoteButtons
-                    suggestionId={sug.id}
-                    initialScore={sug.score}
-                    initialVote={userVotes[sug.id] ?? null}
-                  />
-                ) : (
-                  <span className="text-sm font-medium text-zinc-500">
-                    {sug.score > 0 ? "+" : ""}{sug.score}
-                  </span>
-                )}
-              </SuggestionCard>
-            ))}
-          </div>
-        )}
-      </section>
+      <SuggestionsSection
+        wordSubmissionId={word.id}
+        isLoggedIn={!!user}
+        suggestions={suggestions ?? []}
+        userVotes={userVotes}
+        canGenerate={canGenerate}
+      />
 
       {user && (
         <section className="mt-6">

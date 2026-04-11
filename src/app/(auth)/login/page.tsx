@@ -1,8 +1,18 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { TARGET_LANG } from "@/lib/language";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const handleGoogleLogin = async () => {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
@@ -13,16 +23,111 @@ export default function LoginPage() {
     });
   };
 
+  const handleEmailAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const supabase = createClient();
+
+    if (isSignUp) {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: email.split("@")[0] },
+        },
+      });
+      if (error) {
+        setError(error.message);
+      } else {
+        router.push("/");
+        router.refresh();
+      }
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) {
+        setError(error.message);
+      } else {
+        router.push("/");
+        router.refresh();
+      }
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="flex flex-1 items-center justify-center">
-      <div className="w-full max-w-sm space-y-8 px-4">
+      <div className="w-full max-w-sm space-y-6 px-4">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Word Factory
-          </h1>
+          <h1 className="text-3xl font-bold tracking-tight">Word Factory</h1>
           <p className="mt-2 text-zinc-600 dark:text-zinc-400">
             Sign in to submit words and vote on suggestions
           </p>
+        </div>
+
+        <form onSubmit={handleEmailAuth} className="space-y-3">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full rounded-lg border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
+            className="w-full rounded-lg border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200"
+          />
+
+          {error && (
+            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-lg bg-zinc-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          >
+            {loading
+              ? "..."
+              : isSignUp
+                ? "Create Account"
+                : "Sign In"}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setIsSignUp(!isSignUp);
+              setError("");
+            }}
+            className="w-full text-center text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
+          >
+            {isSignUp
+              ? "Already have an account? Sign in"
+              : "No account? Create one"}
+          </button>
+        </form>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-zinc-200 dark:border-zinc-700" />
+          </div>
+          <div className="relative flex justify-center text-xs">
+            <span className="bg-white px-2 text-zinc-500 dark:bg-zinc-950 dark:text-zinc-400">
+              or
+            </span>
+          </div>
         </div>
 
         <button
@@ -51,7 +156,7 @@ export default function LoginPage() {
         </button>
 
         <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
-          By signing in, you agree to help build the Georgian lexicon
+          {TARGET_LANG.ui.loginFooter}
         </p>
       </div>
     </div>

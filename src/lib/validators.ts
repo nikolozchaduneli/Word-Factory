@@ -47,7 +47,14 @@ export const flagSchema = z.object({
   description: z.string().max(500).optional(),
 });
 
+export const moderationActionSchema = z.object({
+  target_type: z.enum(["flag", "word_submission", "user_suggestion"]),
+  target_id: z.string().uuid(),
+  action: z.enum(["approve", "reject", "resolve", "dismiss"]),
+});
+
 export type WordSubmissionInput = z.infer<typeof wordSubmissionSchema>;
 export type UserSuggestionInput = z.infer<typeof userSuggestionSchema>;
 export type VoteInput = z.infer<typeof voteSchema>;
 export type FlagInput = z.infer<typeof flagSchema>;
+export type ModerationActionInput = z.infer<typeof moderationActionSchema>;

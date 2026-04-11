@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import { TARGET_LANG } from "@/lib/language";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,9 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Word Factory - Georgian Neologism Platform",
-  description:
-    "Submit foreign words lacking Georgian equivalents, get AI-generated neologisms, and vote on the best suggestions.",
+  title: TARGET_LANG.ui.siteTitle,
+  description: TARGET_LANG.ui.siteDescription,
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="ka"
+      lang={TARGET_LANG.htmlLang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950">

@@ -1,4 +1,20 @@
 import { createClient } from "@/lib/supabase/server";
+import { TARGET_LANG } from "@/lib/language";
+
+const LANG_TO_COUNTRY: Record<string, string> = {
+  en: "gb",
+  de: "de",
+  fr: "fr",
+  es: "es",
+  it: "it",
+  ru: "ru",
+  ja: "jp",
+  ko: "kr",
+  zh: "cn",
+  ar: "sa",
+  pt: "pt",
+  tr: "tr",
+};
 
 export default async function LeaderboardPage() {
   const supabase = await createClient();
@@ -8,14 +24,16 @@ export default async function LeaderboardPage() {
       supabase
         .from("ai_suggestions")
         .select(
-          "id, suggested_word, transliteration, score, word_submission_id, word_submissions!inner(foreign_word)"
+          "id, suggested_word, transliteration, score, word_submission_id, word_submissions!inner(foreign_word, source_language, target_language)"
         )
+        .eq("word_submissions.target_language", TARGET_LANG.code)
+        .gt("score", 0)
         .order("score", { ascending: false })
-        .limit(20),
+        .limit(50),
       supabase
         .from("profiles")
         .select("id, display_name, avatar_url")
-        .limit(20),
+        .limit(50),
     ]);
 
   // Get submission counts for contributors
@@ -25,7 +43,8 @@ export default async function LeaderboardPage() {
     const { data: counts } = await supabase
       .from("word_submissions")
       .select("user_id")
-      .in("user_id", contributorIds);
+      .in("user_id", contributorIds)
+      .eq("target_language", TARGET_LANG.code);
 
     if (counts) {
       contributorCounts = counts.reduce(
@@ -33,7 +52,7 @@ export default async function LeaderboardPage() {
           acc[row.user_id] = (acc[row.user_id] || 0) + 1;
           return acc;
         },
-        {} as Record<string, number>
+        {} as Record<string, number>,
       );
     }
   }
@@ -51,13 +70,17 @@ export default async function LeaderboardPage() {
         <section>
           <h2 className="text-lg font-semibold mb-4">Top Neologisms</h2>
           {!topSuggestions || topSuggestions.length === 0 ? (
-            <p className="text-sm text-zinc-500">No suggestions yet.</p>
+            <p className="text-sm text-zinc-500">
+              No voted suggestions yet. Be the first to vote!
+            </p>
           ) : (
             <div className="space-y-2">
               {topSuggestions.map((sug, i) => {
-                const wordSubmission = sug.word_submissions as unknown as {
+                const ws = sug.word_submissions as unknown as {
                   foreign_word: string;
+                  source_language: string;
                 };
+                const countryCode = LANG_TO_COUNTRY[ws.source_language] || null;
                 return (
                   <a
                     key={sug.id}
@@ -76,21 +99,19 @@ export default async function LeaderboardPage() {
                           ({sug.transliteration})
                         </span>
                       )}
-                      <p className="text-xs text-zinc-500 truncate">
-                        for &ldquo;{wordSubmission.foreign_word}&rdquo;
+                      <p className="flex items-center gap-1 text-xs text-zinc-500 truncate">
+                        {countryCode && (
+                          <img
+                            src={`https://flagcdn.com/w20/${countryCode}.png`}
+                            alt={ws.source_language}
+                            className="h-3 w-auto inline-block"
+                          />
+                        )}
+                        {ws.foreign_word}
                       </p>
                     </div>
-                    <span
-                      className={`text-sm font-medium ${
-                        sug.score > 0
-                          ? "text-green-600"
-                          : sug.score < 0
-                            ? "text-red-600"
-                            : "text-zinc-400"
-                      }`}
-                    >
-                      {sug.score > 0 ? "+" : ""}
-                      {sug.score}
+                    <span className="text-sm font-medium text-green-600">
+                      +{sug.score}
                     </span>
                   </a>
                 );
@@ -118,6 +139,7 @@ export default async function LeaderboardPage() {
                       <img
                         src={c.avatar_url}
                         alt=""
+                        referrerPolicy="no-referrer"
                         className="h-6 w-6 rounded-full"
                       />
                     )}

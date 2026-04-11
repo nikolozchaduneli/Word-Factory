@@ -1,11 +1,12 @@
 import { createClient } from "@/lib/supabase/server";
+import { TARGET_LANG } from "@/lib/language";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const word = searchParams.get("word");
 
-  if (!word || word.length < 2) {
+  if (!word || word.length < 2 || word.length > 200) {
     return NextResponse.json({ data: [] });
   }
 
@@ -15,6 +16,7 @@ export async function GET(request: Request) {
   const { data, error } = await supabase.rpc("find_similar_words", {
     search_term: word,
     threshold: 0.3,
+    target_lang: TARGET_LANG.code,
   });
 
   if (error) {
@@ -24,6 +26,7 @@ export async function GET(request: Request) {
       .select("id, foreign_word")
       .ilike("foreign_word", `%${word}%`)
       .neq("status", "rejected")
+      .eq("target_language", TARGET_LANG.code)
       .limit(5);
 
     return NextResponse.json({ data: fallbackData ?? [] });

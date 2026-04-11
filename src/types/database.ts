@@ -15,6 +15,7 @@ export type WordSubmission = {
   user_id: string;
   foreign_word: string;
   source_language: string;
+  target_language: string;
   definition: string;
   context_example: string | null;
   status: "pending" | "approved" | "rejected" | "duplicate";
@@ -70,6 +71,16 @@ export type ModerationFlag = {
 
 export type WordSubmissionWithProfile = WordSubmission & {
   profiles: Pick<Profile, "display_name" | "avatar_url">;
+};
+
+export type AuditLog = {
+  id: string;
+  actor_id: string;
+  action: string;
+  target_type: string;
+  target_id: string;
+  metadata: Record<string, unknown>;
+  created_at: string;
 };
 
 export type AiSuggestionWithVote = AiSuggestion & {

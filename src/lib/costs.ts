@@ -33,48 +33,28 @@ export async function recordTokenUsage(
   userId: string,
   tokensUsed: number
 ): Promise<void> {
-  // Update user's daily usage
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("tokens_used_today")
-    .eq("id", userId)
-    .single();
+  // Atomic increment to prevent lost updates under concurrency
+  const { error: tokenError } = await supabase.rpc("increment_tokens_used", {
+    p_user_id: userId,
+    p_tokens: tokensUsed,
+  });
 
-  if (profile) {
-    await supabase
-      .from("profiles")
-      .update({
-        tokens_used_today: profile.tokens_used_today + tokensUsed,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", userId);
+  if (tokenError) {
+    console.error("[costs] Failed to increment tokens:", tokenError.message);
   }
 
-  // Update monthly spend
+  // Atomic monthly spend upsert to prevent race conditions
   const monthYear = new Date().toISOString().slice(0, 7); // e.g. "2026-04"
   const costCents = Math.ceil(tokensUsed * 0.0003); // rough estimate
 
-  const { data: existing } = await supabase
-    .from("monthly_spend")
-    .select("*")
-    .eq("month_year", monthYear)
-    .single();
+  const { error: spendError } = await supabase.rpc("record_monthly_spend", {
+    p_month_year: monthYear,
+    p_tokens: tokensUsed,
+    p_cost_cents: costCents,
+  });
 
-  if (existing) {
-    await supabase
-      .from("monthly_spend")
-      .update({
-        total_tokens: existing.total_tokens + tokensUsed,
-        total_cost_cents: existing.total_cost_cents + costCents,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", existing.id);
-  } else {
-    await supabase.from("monthly_spend").insert({
-      month_year: monthYear,
-      total_tokens: tokensUsed,
-      total_cost_cents: costCents,
-    });
+  if (spendError) {
+    console.error("[costs] Failed to record monthly spend:", spendError.message);
   }
 }
 

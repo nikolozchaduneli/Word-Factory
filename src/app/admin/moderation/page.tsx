@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { TARGET_LANG } from "@/lib/language";
 import ModerationQueue from "@/components/ModerationQueue";
 
 export default async function ModerationPage() {
@@ -16,6 +17,7 @@ export default async function ModerationPage() {
         .from("word_submissions")
         .select("*, profiles!inner(display_name)")
         .eq("status", "pending")
+        .eq("target_language", TARGET_LANG.code)
         .order("created_at", { ascending: false })
         .limit(50),
       supabase

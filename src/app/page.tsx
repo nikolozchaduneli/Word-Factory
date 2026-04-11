@@ -1,11 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
+import { TARGET_LANG } from "@/lib/language";
 
 export default async function Home() {
   const supabase = await createClient();
   const { count } = await supabase
     .from("word_submissions")
     .select("*", { count: "exact", head: true })
-    .eq("status", "approved");
+    .eq("status", "approved")
+    .eq("target_language", TARGET_LANG.code);
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-4 py-24">
@@ -14,9 +16,7 @@ export default async function Home() {
           Word Factory
         </h1>
         <p className="text-xl text-zinc-600 dark:text-zinc-400">
-          Help build the Georgian lexicon. Submit foreign words that lack
-          native equivalents, and let AI propose elegant Georgian neologisms
-          for the community to vote on.
+          {TARGET_LANG.ui.heroText}
         </p>
 
         {count !== null && count > 0 && (

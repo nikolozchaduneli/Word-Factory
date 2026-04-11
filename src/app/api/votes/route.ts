@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { voteSchema } from "@/lib/validators";
 import { checkRateLimit, rateLimitResponse } from "@/lib/rate-limit";
+import { safeErrorResponse } from "@/lib/api-error";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -30,39 +31,20 @@ export async function POST(request: Request) {
 
   const { suggestion_id, vote_type } = parsed.data;
 
-  // Check if user already voted on this suggestion
-  const { data: existingVote } = await supabase
-    .from("votes")
-    .select("*")
-    .eq("user_id", user.id)
-    .eq("suggestion_id", suggestion_id)
-    .single();
-
-  if (existingVote) {
-    if (existingVote.vote_type === vote_type) {
-      // Same vote — remove it (toggle off)
-      await supabase.from("votes").delete().eq("id", existingVote.id);
-      return NextResponse.json({ action: "removed" });
-    } else {
-      // Different vote — update it
-      await supabase
-        .from("votes")
-        .update({ vote_type })
-        .eq("id", existingVote.id);
-      return NextResponse.json({ action: "updated", vote_type });
-    }
-  }
-
-  // New vote
-  const { error } = await supabase.from("votes").insert({
-    user_id: user.id,
-    suggestion_id,
-    vote_type,
+  // Atomic vote upsert to prevent race conditions
+  const { data, error } = await supabase.rpc("upsert_vote", {
+    p_user_id: user.id,
+    p_suggestion_id: suggestion_id,
+    p_vote_type: vote_type,
   });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return safeErrorResponse(error, "votes/POST");
   }
 
-  return NextResponse.json({ action: "created", vote_type }, { status: 201 });
+  const result = data?.[0];
+  const action = result?.action ?? "created";
+  const status = action === "created" ? 201 : 200;
+
+  return NextResponse.json({ action, vote_type }, { status });
 }

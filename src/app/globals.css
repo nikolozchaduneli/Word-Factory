@@ -1,74 +1,74 @@
 @import "tailwindcss";
 
-/* ── Aurora Design Tokens ── */
+/* ── Editorial Design Tokens ── */
 :root {
   /* Surfaces */
-  --bg:             #FAFAFA;
-  --fg:             #171717;
+  --bg:             #FAF9F6;
+  --fg:             #2C2520;
   --surface:        #FFFFFF;
-  --surface-hover:  #F5F5F5;
+  --surface-hover:  #F5F3EF;
   --elevated:       #FFFFFF;
 
   /* Text */
-  --text:           #171717;
-  --text-secondary: #525252;
-  --text-muted:     #A3A3A3;
+  --text:           #2C2520;
+  --text-secondary: #6B5E54;
+  --text-muted:     #A89F97;
 
   /* Brand / accent */
-  --primary:        #5E6AD2;
-  --primary-hover:  #4F5ABF;
-  --primary-glow:   rgba(94, 106, 210, 0.25);
+  --primary:        #8B2252;
+  --primary-hover:  #741D45;
+  --primary-glow:   transparent;
 
   /* Borders */
-  --border:         #E5E5E5;
-  --border-hover:   #D4D4D4;
+  --border:         #E8E2DA;
+  --border-hover:   #D4CCC2;
   --border-active:  var(--primary);
 
   /* Inputs */
   --input-bg:       #FFFFFF;
-  --input-border:   #E5E5E5;
-  --ring:           rgba(94, 106, 210, 0.3);
+  --input-border:   #E8E2DA;
+  --ring:           rgba(139, 34, 82, 0.2);
 
   /* Misc */
-  --muted-bg:       #F5F5F5;
-  --skeleton:       #E5E5E5;
-  --skeleton-light: #F5F5F5;
+  --muted-bg:       #F5F3EF;
+  --skeleton:       #E8E2DA;
+  --skeleton-light: #F5F3EF;
 
-  /* Ambient background */
-  --ambient-blob-1: rgba(99, 102, 241, 0.12);
-  --ambient-blob-2: rgba(168, 85, 247, 0.10);
+  /* Ambient background — very subtle warm wash */
+  --ambient-blob-1: rgba(180, 140, 100, 0.06);
+  --ambient-blob-2: rgba(139, 34, 82, 0.04);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:             #050506;
-    --fg:             #EDEDEF;
-    --surface:        rgba(255, 255, 255, 0.06);
-    --surface-hover:  rgba(255, 255, 255, 0.09);
-    --elevated:       rgba(255, 255, 255, 0.08);
+    --bg:             #1A1814;
+    --fg:             #E8E2DA;
+    --surface:        #231F1B;
+    --surface-hover:  #2C2722;
+    --elevated:       #2C2722;
 
-    --text:           #EDEDEF;
-    --text-secondary: #8A8F98;
-    --text-muted:     #5A5F6B;
+    --text:           #E8E2DA;
+    --text-secondary: #B5AA9E;
+    --text-muted:     #7A7068;
 
-    --primary:        #818CF8;
-    --primary-hover:  #A5B4FC;
-    --primary-glow:   rgba(129, 140, 248, 0.3);
+    --primary:        #D4768B;
+    --primary-hover:  #E08DA2;
+    --primary-glow:   transparent;
 
-    --border:         rgba(255, 255, 255, 0.1);
-    --border-hover:   rgba(255, 255, 255, 0.18);
+    --border:         #3A342E;
+    --border-hover:   #4A433C;
     --border-active:  var(--primary);
 
-    --input-bg:       rgba(255, 255, 255, 0.06);
-    --input-border:   rgba(255, 255, 255, 0.12);
-    --ring:           rgba(129, 140, 248, 0.25);
+    --input-bg:       #231F1B;
+    --input-border:   #3A342E;
+    --ring:           rgba(212, 118, 139, 0.2);
 
-    --muted-bg:       rgba(255, 255, 255, 0.04);
-    --skeleton:       rgba(255, 255, 255, 0.08);
-    --skeleton-light: rgba(255, 255, 255, 0.04);
+    --muted-bg:       #2C2722;
+    --skeleton:       #3A342E;
+    --skeleton-light: #2C2722;
 
-    --ambient-blob-1: rgba(99, 102, 241, 0.20);
-    --ambient-blob-2: rgba(168, 85, 247, 0.16);
+    --ambient-blob-1: rgba(180, 140, 100, 0.08);
+    --ambient-blob-2: rgba(212, 118, 139, 0.05);
   }
 }
 
@@ -87,15 +87,18 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+/* Heading font override — editorial serif */
+h1, h2, h3 {
+  font-family: var(--font-heading), Georgia, serif;
+}
+
 /* ── Reusable surface classes ── */
 
-/* Card: the main content container */
+/* Card: solid warm surface, no glassmorphism */
 .au-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 0.5rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
 }
 .au-card:hover, .au-card-hover:hover {
@@ -116,18 +119,16 @@ body {
   box-shadow: 0 0 0 3px var(--ring);
 }
 
-/* Primary button */
+/* Primary button — understated, no glow */
 .au-btn-primary {
   background: var(--primary);
   color: #FFFFFF;
   border-radius: 0.5rem;
   font-weight: 500;
-  transition: background 0.15s, box-shadow 0.15s;
-  box-shadow: 0 0 20px var(--primary-glow);
+  transition: background 0.15s;
 }
 .au-btn-primary:hover {
   background: var(--primary-hover);
-  box-shadow: 0 0 30px var(--primary-glow);
 }
 .au-btn-primary:disabled {
   opacity: 0.5;
@@ -146,14 +147,13 @@ body {
   border-color: var(--border-hover);
 }
 
-/* Ambient background blobs (used on all pages via layout) */
+/* Ambient background — very subtle warm wash */
 .au-ambient {
   position: fixed;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
-  /* Very faint base wash so the center isn't totally bare */
   background: radial-gradient(
     ellipse 60% 50% at 50% 40%,
     var(--ambient-blob-1),
@@ -165,8 +165,8 @@ body {
   content: "";
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  animation: aurora-drift 14s ease-in-out infinite;
+  filter: blur(100px);
+  animation: editorial-drift 20s ease-in-out infinite;
 }
 .au-ambient::before {
   width: 45vw;
@@ -185,10 +185,10 @@ body {
   background: var(--ambient-blob-2);
   bottom: -15%;
   left: -10%;
-  animation-delay: -7s;
+  animation-delay: -10s;
 }
 
-/* Third blob: fills the center gap between ::before (top-right) and ::after (bottom-left) */
+/* Third blob */
 .au-ambient-center {
   position: absolute;
   width: 35vw;
@@ -197,18 +197,18 @@ body {
   min-height: 350px;
   border-radius: 50%;
   background: var(--ambient-blob-2);
-  opacity: 0.7;
-  filter: blur(80px);
+  opacity: 0.5;
+  filter: blur(100px);
   top: 40%;
   left: 30%;
-  animation: aurora-drift 14s ease-in-out infinite;
-  animation-delay: -4s;
+  animation: editorial-drift 20s ease-in-out infinite;
+  animation-delay: -5s;
 }
 
-@keyframes aurora-drift {
+@keyframes editorial-drift {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -20px) scale(1.1); }
-  66% { transform: translate(-20px, 15px) scale(0.95); }
+  33% { transform: translate(15px, -10px) scale(1.05); }
+  66% { transform: translate(-10px, 8px) scale(0.97); }
 }
 
 /* ── Utility: text colors ── */
@@ -216,74 +216,68 @@ body {
 .au-text-secondary { color: var(--text-secondary); }
 .au-text-muted   { color: var(--text-muted); }
 
-/* ── Navbar frosted glass ── */
+/* ── Navbar ── */
 .au-navbar {
-  background: rgba(250, 250, 250, 0.8);
+  background: rgba(250, 249, 246, 0.9);
   border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 @media (prefers-color-scheme: dark) {
   .au-navbar {
-    background: rgba(5, 5, 6, 0.7);
+    background: rgba(26, 24, 20, 0.9);
   }
 }
 
-/* ── Model badge glow ── */
+/* ── Model badge ── */
 .au-badge-claude {
-  background: rgba(168, 85, 247, 0.15);
-  color: #C084FC;
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+  background: rgba(139, 34, 82, 0.12);
+  color: #D4768B;
 }
 .au-badge-gpt {
-  background: rgba(34, 197, 94, 0.15);
+  background: rgba(34, 120, 60, 0.12);
   color: #4ADE80;
-  box-shadow: 0 0 12px rgba(34, 197, 94, 0.35);
 }
 .au-badge-gemini {
-  background: rgba(59, 130, 246, 0.15);
+  background: rgba(40, 80, 160, 0.12);
   color: #60A5FA;
-  box-shadow: 0 0 12px rgba(59, 130, 246, 0.35);
 }
 .au-badge-default {
   background: var(--muted-bg);
   color: var(--text-secondary);
 }
 
-/* Light mode badge overrides (no glow, solid bg) */
+/* Light mode badge overrides */
 @media not (prefers-color-scheme: dark) {
   .au-badge-claude {
-    background: #F3E8FF;
-    color: #7C3AED;
-    box-shadow: none;
+    background: #F9E8EE;
+    color: #8B2252;
   }
   .au-badge-gpt {
     background: #DCFCE7;
     color: #16A34A;
-    box-shadow: none;
   }
   .au-badge-gemini {
     background: #DBEAFE;
     color: #2563EB;
-    box-shadow: none;
   }
   .au-badge-default {
-    background: #F5F5F5;
-    color: #525252;
+    background: #F5F3EF;
+    color: #6B5E54;
   }
 }
 
 /* ── Status badges ── */
 .au-status-approved {
-  background: rgba(34, 197, 94, 0.15);
+  background: rgba(34, 150, 60, 0.12);
   color: #4ADE80;
 }
 .au-status-pending {
-  background: rgba(234, 179, 8, 0.15);
+  background: rgba(180, 140, 20, 0.12);
   color: #FACC15;
 }
 .au-status-rejected {
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(200, 50, 50, 0.12);
   color: #F87171;
 }
 @media not (prefers-color-scheme: dark) {

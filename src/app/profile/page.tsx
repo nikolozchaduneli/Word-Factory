@@ -41,7 +41,7 @@ export default async function ProfilePage() {
           <h1 className="text-2xl font-bold">
             {profile?.display_name ?? "Anonymous"}
           </h1>
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm au-text-muted">
             Member since{" "}
             {new Date(profile?.created_at ?? "").toLocaleDateString("en-US", {
               year: "numeric",
@@ -57,13 +57,14 @@ export default async function ProfilePage() {
         </h2>
 
         {!submissions || submissions.length === 0 ? (
-          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md">
-            <p className="text-neutral-500">
+          <div className="au-card p-8 text-center">
+            <p className="au-text-muted">
               You haven&apos;t submitted any words yet.
             </p>
             <a
               href="/words/new"
-              className="mt-3 inline-block text-sm font-medium text-[#5E6AD2] underline dark:text-[#818CF8]"
+              className="mt-3 inline-block text-sm font-medium underline"
+              style={{ color: "var(--primary)" }}
             >
               Submit your first word
             </a>
@@ -74,31 +75,31 @@ export default async function ProfilePage() {
               <a
                 key={sub.id}
                 href={`/words/${sub.id}`}
-                className="block rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md dark:hover:border-[#5E6AD2]/40"
+                className="au-card au-card-hover block p-4"
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <span className="font-medium">{sub.foreign_word}</span>
-                    <span className="ml-2 text-xs text-neutral-400">
+                    <span className="ml-2 text-xs au-text-muted">
                       {sub.source_language}
                     </span>
                   </div>
                   <span
                     className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                       sub.status === "approved"
-                        ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
+                        ? "au-status-approved"
                         : sub.status === "pending"
-                          ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
-                          : "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"
+                          ? "au-status-pending"
+                          : "au-status-rejected"
                     }`}
                   >
                     {sub.status}
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
+                <p className="mt-1 text-sm au-text-secondary line-clamp-2">
                   {sub.definition}
                 </p>
-                <p className="mt-2 text-xs text-neutral-400">
+                <p className="mt-2 text-xs au-text-muted">
                   {new Date(sub.created_at).toLocaleDateString()}
                 </p>
               </a>

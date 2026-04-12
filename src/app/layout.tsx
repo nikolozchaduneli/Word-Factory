@@ -29,9 +29,12 @@ export default function RootLayout({
       lang={TARGET_LANG.htmlLang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-neutral-50 dark:bg-[#050506]">
+      <body className="min-h-full flex flex-col">
+        <div className="au-ambient" aria-hidden="true">
+          <div className="au-ambient-center" />
+        </div>
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="relative z-[1] flex-1">{children}</main>
       </body>
     </html>
   );

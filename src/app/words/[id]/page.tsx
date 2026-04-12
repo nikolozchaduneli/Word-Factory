@@ -61,43 +61,43 @@ export default async function WordDetailPage({
     <div className="mx-auto max-w-3xl px-4 py-12">
       <a
         href="/words"
-        className="text-sm text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+        className="text-sm au-text-muted hover:text-[var(--text-secondary)] transition-colors"
       >
         &larr; Back to words
       </a>
 
-      <div className="mt-6 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md">
+      <div className="au-card mt-6 p-6">
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-3xl font-bold">{word.foreign_word}</h1>
-            <span className="text-sm text-neutral-400 dark:text-[#8A8F98] uppercase">
+            <span className="text-sm au-text-muted uppercase">
               {word.source_language}
             </span>
           </div>
           <span
             className={`rounded-full px-2.5 py-1 text-xs font-medium ${
               word.status === "approved"
-                ? "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300"
-                : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300"
+                ? "au-status-approved"
+                : "au-status-pending"
             }`}
           >
             {word.status}
           </span>
         </div>
 
-        <p className="mt-4 text-neutral-700 dark:text-neutral-300">
+        <p className="mt-4" style={{ color: "var(--text)" }}>
           {word.definition}
         </p>
 
         {word.context_example && (
-          <div className="mt-4 rounded-lg bg-neutral-50 p-3 dark:bg-white/[0.06]">
-            <p className="text-sm italic text-neutral-600 dark:text-neutral-400">
+          <div className="mt-4 rounded-lg p-3" style={{ background: "var(--muted-bg)" }}>
+            <p className="text-sm italic au-text-secondary">
               &ldquo;{word.context_example}&rdquo;
             </p>
           </div>
         )}
 
-        <div className="mt-4 flex items-center gap-2 text-sm text-neutral-500">
+        <div className="mt-4 flex items-center gap-2 text-sm au-text-muted">
           {word.profiles?.avatar_url && (
             <img
               src={word.profiles.avatar_url}

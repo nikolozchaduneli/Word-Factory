@@ -37,7 +37,7 @@ export default function AuthButton() {
 
   if (loading) {
     return (
-      <div className="h-9 w-20 animate-pulse rounded-lg bg-neutral-200 dark:bg-white/[0.1]" />
+      <div className="h-9 w-20 animate-pulse rounded-lg" style={{ background: "var(--skeleton)" }} />
     );
   }
 
@@ -45,7 +45,7 @@ export default function AuthButton() {
     return (
       <a
         href="/login"
-        className="rounded-lg bg-[#5E6AD2] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#6872D9]"
+        className="au-btn-primary px-4 py-2 text-sm"
       >
         Sign In
       </a>
@@ -69,7 +69,7 @@ export default function AuthButton() {
       </a>
       <button
         onClick={handleSignOut}
-        className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-600 transition-colors hover:bg-neutral-100 dark:border-white/[0.1] dark:text-neutral-400 dark:hover:bg-white/[0.1]"
+        className="au-btn-ghost px-3 py-1.5 text-sm"
       >
         Sign Out
       </button>

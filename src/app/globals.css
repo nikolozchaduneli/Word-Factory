@@ -1,56 +1,293 @@
 @import "tailwindcss";
 
+/* ── Aurora Design Tokens ── */
 :root {
-  --background: #FAFAFA;
-  --foreground: #171717;
-}
+  /* Surfaces */
+  --bg:             #FAFAFA;
+  --fg:             #171717;
+  --surface:        #FFFFFF;
+  --surface-hover:  #F5F5F5;
+  --elevated:       #FFFFFF;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Text */
+  --text:           #171717;
+  --text-secondary: #525252;
+  --text-muted:     #A3A3A3;
+
+  /* Brand / accent */
+  --primary:        #5E6AD2;
+  --primary-hover:  #4F5ABF;
+  --primary-glow:   rgba(94, 106, 210, 0.25);
+
+  /* Borders */
+  --border:         #E5E5E5;
+  --border-hover:   #D4D4D4;
+  --border-active:  var(--primary);
+
+  /* Inputs */
+  --input-bg:       #FFFFFF;
+  --input-border:   #E5E5E5;
+  --ring:           rgba(94, 106, 210, 0.3);
+
+  /* Misc */
+  --muted-bg:       #F5F5F5;
+  --skeleton:       #E5E5E5;
+  --skeleton-light: #F5F5F5;
+
+  /* Ambient background */
+  --ambient-blob-1: rgba(99, 102, 241, 0.12);
+  --ambient-blob-2: rgba(168, 85, 247, 0.10);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #050506;
-    --foreground: #EDEDEF;
+    --bg:             #050506;
+    --fg:             #EDEDEF;
+    --surface:        rgba(255, 255, 255, 0.06);
+    --surface-hover:  rgba(255, 255, 255, 0.09);
+    --elevated:       rgba(255, 255, 255, 0.08);
+
+    --text:           #EDEDEF;
+    --text-secondary: #8A8F98;
+    --text-muted:     #5A5F6B;
+
+    --primary:        #818CF8;
+    --primary-hover:  #A5B4FC;
+    --primary-glow:   rgba(129, 140, 248, 0.3);
+
+    --border:         rgba(255, 255, 255, 0.1);
+    --border-hover:   rgba(255, 255, 255, 0.18);
+    --border-active:  var(--primary);
+
+    --input-bg:       rgba(255, 255, 255, 0.06);
+    --input-border:   rgba(255, 255, 255, 0.12);
+    --ring:           rgba(129, 140, 248, 0.25);
+
+    --muted-bg:       rgba(255, 255, 255, 0.04);
+    --skeleton:       rgba(255, 255, 255, 0.08);
+    --skeleton-light: rgba(255, 255, 255, 0.04);
+
+    --ambient-blob-1: rgba(99, 102, 241, 0.20);
+    --ambient-blob-2: rgba(168, 85, 247, 0.16);
   }
 }
 
+/* ── Tailwind theme bridge ── */
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Base ── */
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
-/* Aurora gradient animation for hero */
+/* ── Reusable surface classes ── */
+
+/* Card: the main content container */
+.au-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.au-card:hover, .au-card-hover:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-hover);
+}
+
+/* Input fields */
+.au-input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0.5rem;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.au-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* Primary button */
+.au-btn-primary {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background 0.15s, box-shadow 0.15s;
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+.au-btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 0 30px var(--primary-glow);
+}
+.au-btn-primary:disabled {
+  opacity: 0.5;
+}
+
+/* Ghost / secondary button */
+.au-btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--text-secondary);
+  transition: background 0.15s, border-color 0.15s;
+}
+.au-btn-ghost:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
+}
+
+/* Ambient background blobs (used on all pages via layout) */
+.au-ambient {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  /* Very faint base wash so the center isn't totally bare */
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 40%,
+    var(--ambient-blob-1),
+    transparent 80%
+  );
+}
+.au-ambient::before,
+.au-ambient::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: aurora-drift 14s ease-in-out infinite;
+}
+.au-ambient::before {
+  width: 45vw;
+  height: 45vw;
+  min-width: 500px;
+  min-height: 500px;
+  background: var(--ambient-blob-1);
+  top: -15%;
+  right: -10%;
+}
+.au-ambient::after {
+  width: 40vw;
+  height: 40vw;
+  min-width: 450px;
+  min-height: 450px;
+  background: var(--ambient-blob-2);
+  bottom: -15%;
+  left: -10%;
+  animation-delay: -7s;
+}
+
+/* Third blob: fills the center gap between ::before (top-right) and ::after (bottom-left) */
+.au-ambient-center {
+  position: absolute;
+  width: 35vw;
+  height: 35vw;
+  min-width: 350px;
+  min-height: 350px;
+  border-radius: 50%;
+  background: var(--ambient-blob-2);
+  opacity: 0.7;
+  filter: blur(80px);
+  top: 40%;
+  left: 30%;
+  animation: aurora-drift 14s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
 @keyframes aurora-drift {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33% { transform: translate(30px, -20px) scale(1.1); }
   66% { transform: translate(-20px, 15px) scale(0.95); }
 }
 
-.aurora-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  animation: aurora-drift 12s ease-in-out infinite;
-  pointer-events: none;
-}
+/* ── Utility: text colors ── */
+.au-text         { color: var(--text); }
+.au-text-secondary { color: var(--text-secondary); }
+.au-text-muted   { color: var(--text-muted); }
 
-/* Glassmorphic card surface for dark mode */
-.glass-card {
-  background: white;
-  border: 1px solid #e5e5e5;
+/* ── Navbar frosted glass ── */
+.au-navbar {
+  background: rgba(250, 250, 250, 0.8);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
-
 @media (prefers-color-scheme: dark) {
-  .glass-card {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+  .au-navbar {
+    background: rgba(5, 5, 6, 0.7);
   }
+}
+
+/* ── Model badge glow ── */
+.au-badge-claude {
+  background: rgba(168, 85, 247, 0.15);
+  color: #C084FC;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+}
+.au-badge-gpt {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ADE80;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.35);
+}
+.au-badge-gemini {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60A5FA;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.35);
+}
+.au-badge-default {
+  background: var(--muted-bg);
+  color: var(--text-secondary);
+}
+
+/* Light mode badge overrides (no glow, solid bg) */
+@media not (prefers-color-scheme: dark) {
+  .au-badge-claude {
+    background: #F3E8FF;
+    color: #7C3AED;
+    box-shadow: none;
+  }
+  .au-badge-gpt {
+    background: #DCFCE7;
+    color: #16A34A;
+    box-shadow: none;
+  }
+  .au-badge-gemini {
+    background: #DBEAFE;
+    color: #2563EB;
+    box-shadow: none;
+  }
+  .au-badge-default {
+    background: #F5F5F5;
+    color: #525252;
+  }
+}
+
+/* ── Status badges ── */
+.au-status-approved {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ADE80;
+}
+.au-status-pending {
+  background: rgba(234, 179, 8, 0.15);
+  color: #FACC15;
+}
+.au-status-rejected {
+  background: rgba(239, 68, 68, 0.15);
+  color: #F87171;
+}
+@media not (prefers-color-scheme: dark) {
+  .au-status-approved { background: #DCFCE7; color: #15803D; }
+  .au-status-pending  { background: #FEF9C3; color: #A16207; }
+  .au-status-rejected { background: #FEE2E2; color: #B91C1C; }
 }

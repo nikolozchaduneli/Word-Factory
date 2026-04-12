@@ -16,7 +16,7 @@ export default async function NewWordPage() {
   return (
     <div className="mx-auto max-w-lg px-4 py-12">
       <h1 className="text-2xl font-bold mb-2">Submit a Word</h1>
-      <p className="text-sm text-neutral-500 mb-8">
+      <p className="text-sm au-text-muted mb-8">
         {TARGET_LANG.ui.submitPageDescription}
       </p>
       <SubmitWordForm />

@@ -63,8 +63,8 @@ export default function VoteButtons({
         disabled={loading}
         className={`rounded p-1 transition-colors ${
           currentVote === 1
-            ? "text-green-600 dark:text-green-400"
-            : "text-neutral-400 dark:text-neutral-600 hover:text-neutral-600 dark:hover:text-neutral-400"
+            ? "text-green-500"
+            : "au-text-muted hover:text-[var(--text-secondary)]"
         }`}
         title="Upvote"
       >
@@ -84,10 +84,10 @@ export default function VoteButtons({
       <span
         className={`min-w-[2ch] text-center text-sm font-medium ${
           score > 0
-            ? "text-green-600 dark:text-green-400"
+            ? "text-green-500"
             : score < 0
-              ? "text-red-600 dark:text-red-400"
-              : "text-neutral-500"
+              ? "text-red-500"
+              : "au-text-muted"
         }`}
       >
         {score}
@@ -97,8 +97,8 @@ export default function VoteButtons({
         disabled={loading}
         className={`rounded p-1 transition-colors ${
           currentVote === -1
-            ? "text-red-600 dark:text-red-400"
-            : "text-neutral-400 dark:text-neutral-600 hover:text-neutral-600 dark:hover:text-neutral-400"
+            ? "text-red-500"
+            : "au-text-muted hover:text-[var(--text-secondary)]"
         }`}
         title="Downvote"
       >

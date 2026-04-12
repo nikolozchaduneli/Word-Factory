@@ -70,7 +70,7 @@ export default async function LeaderboardPage() {
         <section>
           <h2 className="text-lg font-semibold mb-4">Top Neologisms</h2>
           {!topSuggestions || topSuggestions.length === 0 ? (
-            <p className="text-sm text-neutral-500">
+            <p className="text-sm au-text-muted">
               No voted suggestions yet. Be the first to vote!
             </p>
           ) : (
@@ -85,9 +85,12 @@ export default async function LeaderboardPage() {
                   <a
                     key={sug.id}
                     href={`/words/${sug.word_submission_id}`}
-                    className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition-colors hover:border-neutral-300 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md dark:hover:border-[#5E6AD2]/40"
+                    className="au-card au-card-hover flex items-center gap-3 p-3"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-xs font-bold text-neutral-600 dark:bg-white/[0.1] dark:text-neutral-300">
+                    <span
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                      style={{ background: "var(--muted-bg)", color: "var(--text-secondary)" }}
+                    >
                       {i + 1}
                     </span>
                     <div className="min-w-0 flex-1">
@@ -95,11 +98,11 @@ export default async function LeaderboardPage() {
                         {sug.suggested_word}
                       </span>
                       {sug.transliteration && (
-                        <span className="ml-1 text-xs text-neutral-400">
+                        <span className="ml-1 text-xs au-text-muted">
                           ({sug.transliteration})
                         </span>
                       )}
-                      <p className="flex items-center gap-1 text-xs text-neutral-500 truncate">
+                      <p className="flex items-center gap-1 text-xs au-text-muted truncate">
                         {countryCode && (
                           <img
                             src={`https://flagcdn.com/w20/${countryCode}.png`}
@@ -123,15 +126,18 @@ export default async function LeaderboardPage() {
         <section>
           <h2 className="text-lg font-semibold mb-4">Top Contributors</h2>
           {sortedContributors.length === 0 ? (
-            <p className="text-sm text-neutral-500">No contributors yet.</p>
+            <p className="text-sm au-text-muted">No contributors yet.</p>
           ) : (
             <div className="space-y-2">
               {sortedContributors.map((c, i) => (
                 <div
                   key={c.id}
-                  className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md"
+                  className="au-card flex items-center gap-3 p-3"
                 >
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-xs font-bold text-neutral-600 dark:bg-white/[0.1] dark:text-neutral-300">
+                  <span
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                    style={{ background: "var(--muted-bg)", color: "var(--text-secondary)" }}
+                  >
                     {i + 1}
                   </span>
                   <div className="flex items-center gap-2 flex-1">
@@ -147,7 +153,7 @@ export default async function LeaderboardPage() {
                       {c.display_name}
                     </span>
                   </div>
-                  <span className="text-sm text-neutral-500">
+                  <span className="text-sm au-text-muted">
                     {c.count} word{c.count !== 1 ? "s" : ""}
                   </span>
                 </div>

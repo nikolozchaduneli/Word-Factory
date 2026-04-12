@@ -18,7 +18,8 @@ export default function ProposeForm({
     return (
       <button
         onClick={() => setOpen(true)}
-        className="text-sm font-medium text-[#5E6AD2] hover:text-[#6872D9] dark:text-[#818CF8]"
+        className="text-sm font-medium transition-colors"
+        style={{ color: "var(--primary)" }}
       >
         {TARGET_LANG.ui.proposeButton}
       </button>
@@ -59,12 +60,12 @@ export default function ProposeForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-lg border border-neutral-200 bg-white p-4 space-y-3 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md"
+      className="au-card p-4 space-y-3"
     >
       <h3 className="text-sm font-semibold">{TARGET_LANG.ui.proposeHeading}</h3>
 
       {error && (
-        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+        <p className="text-sm text-red-500">{error}</p>
       )}
 
       <input
@@ -72,33 +73,33 @@ export default function ProposeForm({
         name="suggested_word"
         required
         placeholder={TARGET_LANG.ui.proposePlaceholder}
-        className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:focus:border-[#5E6AD2] transition-all"
+        className="au-input w-full px-3 py-2 text-sm"
       />
       <input
         type="text"
         name="transliteration"
         placeholder="Transliteration (Latin script)"
-        className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:focus:border-[#5E6AD2] transition-all"
+        className="au-input w-full px-3 py-2 text-sm"
       />
       <textarea
         name="reasoning"
         rows={2}
         placeholder="Why does this word work? (optional)"
-        className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:focus:border-[#5E6AD2] transition-all"
+        className="au-input w-full px-3 py-2 text-sm"
       />
 
       <div className="flex gap-2">
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-[#5E6AD2] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#6872D9] disabled:opacity-50"
+          className="au-btn-primary px-3 py-1.5 text-sm"
         >
           {loading ? "Submitting..." : "Submit"}
         </button>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-600 hover:bg-neutral-100 dark:border-white/[0.1] dark:text-neutral-400 dark:hover:bg-white/[0.1]"
+          className="au-btn-ghost px-3 py-1.5 text-sm"
         >
           Cancel
         </button>

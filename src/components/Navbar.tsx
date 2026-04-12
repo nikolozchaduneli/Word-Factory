@@ -2,7 +2,7 @@ import AuthButton from "./AuthButton";
 
 export default function Navbar() {
   return (
-    <header className="border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.04] dark:backdrop-blur-xl">
+    <header className="au-navbar relative z-10">
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <a href="/" className="text-xl font-bold tracking-tight">
@@ -11,19 +11,19 @@ export default function Navbar() {
           <div className="hidden items-center gap-4 sm:flex">
             <a
               href="/words"
-              className="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-[#8A8F98] dark:hover:text-white"
+              className="text-sm au-text-secondary transition-colors hover:text-[var(--text)]"
             >
               Browse
             </a>
             <a
               href="/words/new"
-              className="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-[#8A8F98] dark:hover:text-white"
+              className="text-sm au-text-secondary transition-colors hover:text-[var(--text)]"
             >
               Submit
             </a>
             <a
               href="/leaderboard"
-              className="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-[#8A8F98] dark:hover:text-white"
+              className="text-sm au-text-secondary transition-colors hover:text-[var(--text)]"
             >
               Leaderboard
             </a>

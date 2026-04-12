@@ -29,25 +29,25 @@ export default async function SpendPage() {
 
       {/* Current Month */}
       {currentMonth ? (
-        <div className="mb-8 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.1] dark:bg-white/[0.08] dark:backdrop-blur-md">
+        <div className="au-card mb-8 p-6">
           <h2 className="text-lg font-semibold mb-4">
             Current Month ({currentMonth.month_year})
           </h2>
           <div className="grid grid-cols-3 gap-4 mb-4">
             <div>
-              <p className="text-sm text-neutral-500">Tokens Used</p>
+              <p className="text-sm au-text-muted">Tokens Used</p>
               <p className="text-2xl font-bold">
                 {currentMonth.total_tokens.toLocaleString()}
               </p>
             </div>
             <div>
-              <p className="text-sm text-neutral-500">Cost</p>
+              <p className="text-sm au-text-muted">Cost</p>
               <p className="text-2xl font-bold">
                 ${(currentMonth.total_cost_cents / 100).toFixed(2)}
               </p>
             </div>
             <div>
-              <p className="text-sm text-neutral-500">Cap</p>
+              <p className="text-sm au-text-muted">Cap</p>
               <p className="text-2xl font-bold">
                 ${(currentMonth.cap_cents / 100).toFixed(2)}
               </p>
@@ -55,7 +55,7 @@ export default async function SpendPage() {
           </div>
 
           {/* Progress bar */}
-          <div className="h-3 w-full rounded-full bg-neutral-200 dark:bg-white/[0.08]">
+          <div className="h-3 w-full rounded-full" style={{ background: "var(--muted-bg)" }}>
             <div
               className={`h-3 rounded-full transition-all ${
                 capPercentage >= 80
@@ -67,13 +67,13 @@ export default async function SpendPage() {
               style={{ width: `${Math.min(100, capPercentage)}%` }}
             />
           </div>
-          <p className="mt-1 text-xs text-neutral-500 text-right">
+          <p className="mt-1 text-xs au-text-muted text-right">
             {capPercentage}% used
           </p>
         </div>
       ) : (
-        <div className="mb-8 rounded-lg border border-neutral-200 bg-white p-6 text-center dark:border-white/[0.1] dark:bg-white/[0.08] dark:backdrop-blur-md">
-          <p className="text-neutral-500">No spend data yet.</p>
+        <div className="au-card mb-8 p-6 text-center">
+          <p className="au-text-muted">No spend data yet.</p>
         </div>
       )}
 
@@ -85,10 +85,10 @@ export default async function SpendPage() {
             {spendData.slice(1).map((month) => (
               <div
                 key={month.month_year}
-                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.1] dark:bg-white/[0.08] dark:backdrop-blur-md"
+                className="au-card flex items-center justify-between p-3"
               >
                 <span className="text-sm font-medium">{month.month_year}</span>
-                <div className="flex gap-6 text-sm text-neutral-500">
+                <div className="flex gap-6 text-sm au-text-muted">
                   <span>{month.total_tokens.toLocaleString()} tokens</span>
                   <span>
                     ${(month.total_cost_cents / 100).toFixed(2)} / $

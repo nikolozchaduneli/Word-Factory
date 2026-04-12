@@ -65,7 +65,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm space-y-6 px-4">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight">Word Factory</h1>
-          <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+          <p className="mt-2 au-text-secondary">
             Sign in to submit words and vote on suggestions
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:text-neutral-200 transition-all"
+            className="au-input w-full px-4 py-3 text-sm"
           />
           <input
             type="password"
@@ -86,7 +86,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:text-neutral-200 transition-all"
+            className="au-input w-full px-4 py-3 text-sm"
           />
 
           {error && (
@@ -96,7 +96,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-[#5E6AD2] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#6872D9] disabled:opacity-50"
+            className="au-btn-primary w-full px-4 py-3 text-sm"
           >
             {loading
               ? "..."
@@ -111,7 +111,7 @@ export default function LoginPage() {
               setIsSignUp(!isSignUp);
               setError("");
             }}
-            className="w-full text-center text-sm text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
+            className="w-full text-center text-sm au-text-muted transition-colors hover:text-[var(--text-secondary)]"
           >
             {isSignUp
               ? "Already have an account? Sign in"
@@ -121,10 +121,10 @@ export default function LoginPage() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-neutral-200 dark:border-white/[0.1]" />
+            <div className="w-full border-t" style={{ borderColor: "var(--border)" }} />
           </div>
           <div className="relative flex justify-center text-xs">
-            <span className="bg-neutral-50 px-2 text-neutral-500 dark:bg-[#050506] dark:text-neutral-400">
+            <span className="px-2 au-text-muted" style={{ background: "var(--bg)" }}>
               or
             </span>
           </div>
@@ -132,7 +132,7 @@ export default function LoginPage() {
 
         <button
           onClick={handleGoogleLogin}
-          className="flex w-full items-center justify-center gap-3 rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm font-medium text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50 dark:border-white/[0.12] dark:bg-white/[0.06] dark:backdrop-blur-md dark:text-neutral-200 dark:hover:bg-white/[0.1]"
+          className="au-btn-ghost flex w-full items-center justify-center gap-3 px-4 py-3 text-sm font-medium"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path
@@ -155,7 +155,7 @@ export default function LoginPage() {
           Continue with Google
         </button>
 
-        <p className="text-center text-xs text-neutral-500 dark:text-neutral-400">
+        <p className="text-center text-xs au-text-muted">
           {TARGET_LANG.ui.loginFooter}
         </p>
       </div>

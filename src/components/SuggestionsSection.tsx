@@ -49,7 +49,7 @@ export default function SuggestionsSection({
     <button
       onClick={handleGenerate}
       disabled={loading}
-      className="rounded-lg bg-[#5E6AD2] px-4 py-2 text-sm font-medium text-white shadow-[0_0_15px_rgba(94,106,210,0.2)] transition-colors hover:bg-[#6872D9] disabled:opacity-50"
+      className="au-btn-primary px-4 py-2 text-sm"
     >
       {loading ? "Generating..." : "Generate AI Suggestions"}
     </button>
@@ -65,36 +65,36 @@ export default function SuggestionsSection({
       </div>
 
       {error && (
-        <p className="mb-3 text-sm text-red-600 dark:text-red-400">{error}</p>
+        <p className="mb-3 text-sm text-red-500">{error}</p>
       )}
 
       {loading && (
-        <div className="mb-3 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.1] dark:bg-white/[0.08] dark:backdrop-blur-md">
+        <div className="au-card mb-3 p-6">
           <div className="flex items-center gap-3">
             <div className="flex gap-1">
-              <span className="h-2 w-2 rounded-full bg-[#5E6AD2] animate-bounce" style={{ animationDelay: "0ms" }} />
-              <span className="h-2 w-2 rounded-full bg-[#5E6AD2] animate-bounce" style={{ animationDelay: "150ms" }} />
-              <span className="h-2 w-2 rounded-full bg-[#5E6AD2] animate-bounce" style={{ animationDelay: "300ms" }} />
+              <span className="h-2 w-2 rounded-full animate-bounce" style={{ background: "var(--primary)", animationDelay: "0ms" }} />
+              <span className="h-2 w-2 rounded-full animate-bounce" style={{ background: "var(--primary)", animationDelay: "150ms" }} />
+              <span className="h-2 w-2 rounded-full animate-bounce" style={{ background: "var(--primary)", animationDelay: "300ms" }} />
             </div>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm au-text-secondary">
               {TARGET_LANG.ui.generatingText}
             </p>
           </div>
           <div className="mt-4 space-y-3">
-            <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-200 dark:bg-white/[0.08]" />
-            <div className="h-3 w-full animate-pulse rounded bg-neutral-100 dark:bg-white/[0.04]" />
-            <div className="h-4 w-2/3 animate-pulse rounded bg-neutral-200 dark:bg-white/[0.08]" />
-            <div className="h-3 w-5/6 animate-pulse rounded bg-neutral-100 dark:bg-white/[0.04]" />
+            <div className="h-4 w-3/4 animate-pulse rounded" style={{ background: "var(--skeleton)" }} />
+            <div className="h-3 w-full animate-pulse rounded" style={{ background: "var(--skeleton-light)" }} />
+            <div className="h-4 w-2/3 animate-pulse rounded" style={{ background: "var(--skeleton)" }} />
+            <div className="h-3 w-5/6 animate-pulse rounded" style={{ background: "var(--skeleton-light)" }} />
           </div>
         </div>
       )}
 
       {!loading && suggestions.length === 0 && (
-        <div className="rounded-lg border border-dashed border-neutral-300 p-8 text-center dark:border-white/[0.1]">
-          <p className="text-neutral-500 mb-3">No suggestions yet.</p>
+        <div className="rounded-lg border border-dashed p-8 text-center" style={{ borderColor: "var(--border)" }}>
+          <p className="au-text-secondary mb-3">No suggestions yet.</p>
           {generateButton}
           {!isLoggedIn && (
-            <p className="text-sm text-neutral-400 mt-2">
+            <p className="text-sm au-text-muted mt-2">
               <a href="/login" className="underline">Sign in</a> to generate AI suggestions
             </p>
           )}
@@ -112,7 +112,7 @@ export default function SuggestionsSection({
                   initialVote={userVotes[sug.id] ?? null}
                 />
               ) : (
-                <span className="text-sm font-medium text-neutral-500">
+                <span className="text-sm font-medium au-text-muted">
                   {sug.score > 0 ? "+" : ""}{sug.score}
                 </span>
               )}

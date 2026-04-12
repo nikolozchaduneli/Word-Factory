@@ -51,8 +51,8 @@
     --text-secondary: #B5AA9E;
     --text-muted:     #7A7068;
 
-    --primary:        #D4768B;
-    --primary-hover:  #E08DA2;
+    --primary:        #C2596E;
+    --primary-hover:  #D4687D;
     --primary-glow:   transparent;
 
     --border:         #3A342E;
@@ -61,14 +61,14 @@
 
     --input-bg:       #231F1B;
     --input-border:   #3A342E;
-    --ring:           rgba(212, 118, 139, 0.2);
+    --ring:           rgba(194, 89, 110, 0.2);
 
     --muted-bg:       #2C2722;
     --skeleton:       #3A342E;
     --skeleton-light: #2C2722;
 
     --ambient-blob-1: rgba(180, 140, 100, 0.08);
-    --ambient-blob-2: rgba(212, 118, 139, 0.05);
+    --ambient-blob-2: rgba(194, 89, 110, 0.05);
   }
 }
 
@@ -232,7 +232,7 @@ h1, h2, h3 {
 /* ── Model badge ── */
 .au-badge-claude {
   background: rgba(139, 34, 82, 0.12);
-  color: #D4768B;
+  color: #C2596E;
 }
 .au-badge-gpt {
   background: rgba(34, 120, 60, 0.12);

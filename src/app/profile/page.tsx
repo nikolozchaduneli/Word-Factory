@@ -57,7 +57,7 @@ export default async function ProfilePage() {
         </h2>
 
         {!submissions || submissions.length === 0 ? (
-          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center dark:border-white/[0.06] dark:bg-white/[0.03]">
+          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md">
             <p className="text-neutral-500">
               You haven&apos;t submitted any words yet.
             </p>
@@ -74,7 +74,7 @@ export default async function ProfilePage() {
               <a
                 key={sub.id}
                 href={`/words/${sub.id}`}
-                className="block rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 dark:border-white/[0.06] dark:bg-white/[0.03] dark:hover:border-white/[0.1]"
+                className="block rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md dark:hover:border-[#5E6AD2]/40"
               >
                 <div className="flex items-start justify-between">
                   <div>

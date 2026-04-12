@@ -73,7 +73,7 @@ export default function ModerationQueue({
             {flags.map((flag) => (
               <div
                 key={flag.id}
-                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md"
               >
                 <div>
                   <span className="text-sm font-medium">
@@ -125,7 +125,7 @@ export default function ModerationQueue({
             {pendingWords.map((word) => (
               <div
                 key={word.id}
-                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md"
               >
                 <div className="min-w-0 flex-1">
                   <span className="font-medium">{word.foreign_word}</span>
@@ -174,7 +174,7 @@ export default function ModerationQueue({
             {pendingSuggestions.map((sug) => (
               <div
                 key={sug.id}
-                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md"
               >
                 <div className="min-w-0 flex-1">
                   <span className="font-medium">{sug.suggested_word}</span>

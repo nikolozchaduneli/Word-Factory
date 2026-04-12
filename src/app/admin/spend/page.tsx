@@ -29,7 +29,7 @@ export default async function SpendPage() {
 
       {/* Current Month */}
       {currentMonth ? (
-        <div className="mb-8 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.06] dark:bg-white/[0.03]">
+        <div className="mb-8 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.1] dark:bg-white/[0.08] dark:backdrop-blur-md">
           <h2 className="text-lg font-semibold mb-4">
             Current Month ({currentMonth.month_year})
           </h2>
@@ -55,7 +55,7 @@ export default async function SpendPage() {
           </div>
 
           {/* Progress bar */}
-          <div className="h-3 w-full rounded-full bg-neutral-200 dark:bg-white/[0.06]">
+          <div className="h-3 w-full rounded-full bg-neutral-200 dark:bg-white/[0.08]">
             <div
               className={`h-3 rounded-full transition-all ${
                 capPercentage >= 80
@@ -72,7 +72,7 @@ export default async function SpendPage() {
           </p>
         </div>
       ) : (
-        <div className="mb-8 rounded-lg border border-neutral-200 bg-white p-6 text-center dark:border-white/[0.06] dark:bg-white/[0.03]">
+        <div className="mb-8 rounded-lg border border-neutral-200 bg-white p-6 text-center dark:border-white/[0.1] dark:bg-white/[0.08] dark:backdrop-blur-md">
           <p className="text-neutral-500">No spend data yet.</p>
         </div>
       )}
@@ -85,7 +85,7 @@ export default async function SpendPage() {
             {spendData.slice(1).map((month) => (
               <div
                 key={month.month_year}
-                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.1] dark:bg-white/[0.08] dark:backdrop-blur-md"
               >
                 <span className="text-sm font-medium">{month.month_year}</span>
                 <div className="flex gap-6 text-sm text-neutral-500">

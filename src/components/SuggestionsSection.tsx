@@ -69,7 +69,7 @@ export default function SuggestionsSection({
       )}
 
       {loading && (
-        <div className="mb-3 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.06] dark:bg-white/[0.03]">
+        <div className="mb-3 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.1] dark:bg-white/[0.08] dark:backdrop-blur-md">
           <div className="flex items-center gap-3">
             <div className="flex gap-1">
               <span className="h-2 w-2 rounded-full bg-[#5E6AD2] animate-bounce" style={{ animationDelay: "0ms" }} />
@@ -81,10 +81,10 @@ export default function SuggestionsSection({
             </p>
           </div>
           <div className="mt-4 space-y-3">
-            <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-200 dark:bg-white/[0.06]" />
-            <div className="h-3 w-full animate-pulse rounded bg-neutral-100 dark:bg-white/[0.03]" />
-            <div className="h-4 w-2/3 animate-pulse rounded bg-neutral-200 dark:bg-white/[0.06]" />
-            <div className="h-3 w-5/6 animate-pulse rounded bg-neutral-100 dark:bg-white/[0.03]" />
+            <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-200 dark:bg-white/[0.08]" />
+            <div className="h-3 w-full animate-pulse rounded bg-neutral-100 dark:bg-white/[0.04]" />
+            <div className="h-4 w-2/3 animate-pulse rounded bg-neutral-200 dark:bg-white/[0.08]" />
+            <div className="h-3 w-5/6 animate-pulse rounded bg-neutral-100 dark:bg-white/[0.04]" />
           </div>
         </div>
       )}

@@ -172,7 +172,7 @@ export default function SubmitWordForm() {
           value={foreignWord}
           onChange={(e) => setForeignWord(e.target.value)}
           placeholder="e.g. Serendipity"
-          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.08] dark:bg-white/[0.03] dark:focus:border-[#5E6AD2] dark:focus:ring-[#5E6AD2]/20 transition-all"
+          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:focus:border-[#5E6AD2] dark:focus:ring-[#5E6AD2]/20 transition-all"
         />
 
         {similarWords.length > 0 && (
@@ -224,7 +224,7 @@ export default function SubmitWordForm() {
           required
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.08] dark:bg-white/[0.03] dark:focus:border-[#5E6AD2] dark:focus:ring-[#5E6AD2]/20 transition-all"
+          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:focus:border-[#5E6AD2] dark:focus:ring-[#5E6AD2]/20 transition-all"
         >
           {LANGUAGES.map((lang) => (
             <option key={lang.value} value={lang.value}>
@@ -248,7 +248,7 @@ export default function SubmitWordForm() {
           value={definition}
           onChange={(e) => setDefinition(e.target.value)}
           placeholder={TARGET_LANG.ui.submitPlaceholder}
-          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.08] dark:bg-white/[0.03] dark:focus:border-[#5E6AD2] dark:focus:ring-[#5E6AD2]/20 transition-all"
+          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:focus:border-[#5E6AD2] dark:focus:ring-[#5E6AD2]/20 transition-all"
         />
 
         {dictLoading && (
@@ -266,7 +266,7 @@ export default function SubmitWordForm() {
                   setDefinition(def);
                   setDictSuggestions([]);
                 }}
-                className="block w-full rounded border border-neutral-200 bg-neutral-50 px-3 py-2 text-left text-xs text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-100 dark:border-white/[0.06] dark:bg-white/[0.03] dark:text-neutral-300 dark:hover:border-white/[0.1] dark:hover:bg-white/[0.05]"
+                className="block w-full rounded border border-neutral-200 bg-neutral-50 px-3 py-2 text-left text-xs text-neutral-700 transition-colors hover:border-neutral-400 hover:bg-neutral-100 dark:border-white/[0.1] dark:bg-white/[0.06] dark:text-neutral-300 dark:hover:border-white/[0.15] dark:hover:bg-white/[0.08]"
               >
                 {def}
               </button>
@@ -288,7 +288,7 @@ export default function SubmitWordForm() {
           maxLength={500}
           rows={2}
           placeholder="Provide a sentence showing how this word is used..."
-          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.08] dark:bg-white/[0.03] dark:focus:border-[#5E6AD2] dark:focus:ring-[#5E6AD2]/20 transition-all"
+          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.12] dark:bg-white/[0.06] dark:focus:border-[#5E6AD2] dark:focus:ring-[#5E6AD2]/20 transition-all"
         />
       </div>
 

@@ -37,7 +37,7 @@ export default function AuthButton() {
 
   if (loading) {
     return (
-      <div className="h-9 w-20 animate-pulse rounded-lg bg-neutral-200 dark:bg-white/[0.06]" />
+      <div className="h-9 w-20 animate-pulse rounded-lg bg-neutral-200 dark:bg-white/[0.1]" />
     );
   }
 
@@ -69,7 +69,7 @@ export default function AuthButton() {
       </a>
       <button
         onClick={handleSignOut}
-        className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-600 transition-colors hover:bg-neutral-100 dark:border-white/[0.1] dark:text-neutral-400 dark:hover:bg-white/[0.05]"
+        className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-600 transition-colors hover:bg-neutral-100 dark:border-white/[0.1] dark:text-neutral-400 dark:hover:bg-white/[0.1]"
       >
         Sign Out
       </button>

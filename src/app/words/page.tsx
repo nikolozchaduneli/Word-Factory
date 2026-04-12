@@ -69,7 +69,7 @@ export default async function WordsPage({
       </div>
 
       {!words || words.length === 0 ? (
-        <div className="rounded-lg border border-neutral-200 bg-white p-12 text-center dark:border-white/[0.06] dark:bg-white/[0.03]">
+        <div className="rounded-lg border border-neutral-200 bg-white p-12 text-center dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md">
           <p className="text-neutral-500">
             {search
               ? `No words found matching "${search}"`
@@ -89,7 +89,7 @@ export default async function WordsPage({
           {page > 1 && (
             <a
               href={`/words?page=${page - 1}${search ? `&search=${search}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-              className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm hover:bg-neutral-100 dark:border-white/[0.1] dark:hover:bg-white/[0.05]"
+              className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm hover:bg-neutral-100 dark:border-white/[0.1] dark:hover:bg-white/[0.1]"
             >
               Previous
             </a>
@@ -100,7 +100,7 @@ export default async function WordsPage({
           {page < totalPages && (
             <a
               href={`/words?page=${page + 1}${search ? `&search=${search}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-              className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm hover:bg-neutral-100 dark:border-white/[0.1] dark:hover:bg-white/[0.05]"
+              className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm hover:bg-neutral-100 dark:border-white/[0.1] dark:hover:bg-white/[0.1]"
             >
               Next
             </a>

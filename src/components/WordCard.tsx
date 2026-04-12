@@ -4,7 +4,7 @@ export default function WordCard({ word }: { word: WordSubmissionWithProfile }) 
   return (
     <a
       href={`/words/${word.id}`}
-      className="block rounded-lg border border-neutral-200 bg-white p-5 transition-all hover:border-neutral-300 dark:border-white/[0.06] dark:bg-white/[0.03] dark:hover:border-white/[0.1] dark:hover:bg-white/[0.05]"
+      className="block rounded-lg border border-neutral-200 bg-white p-5 transition-all hover:border-neutral-300 hover:shadow-sm dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md dark:hover:border-[#5E6AD2]/40 dark:hover:bg-white/[0.08]"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">

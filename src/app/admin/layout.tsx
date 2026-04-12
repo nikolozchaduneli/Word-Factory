@@ -27,7 +27,7 @@ export default async function AdminLayout({
 
   return (
     <div>
-      <div className="border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-white/[0.06] dark:bg-[#050506]/80">
+      <div className="border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.04] dark:backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl gap-4 px-4 py-2">
           <a
             href="/admin/moderation"

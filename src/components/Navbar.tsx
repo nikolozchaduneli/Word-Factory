@@ -2,7 +2,7 @@ import AuthButton from "./AuthButton";
 
 export default function Navbar() {
   return (
-    <header className="border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-white/[0.06] dark:bg-[#050506]/80">
+    <header className="border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.04] dark:backdrop-blur-xl">
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <a href="/" className="text-xl font-bold tracking-tight">

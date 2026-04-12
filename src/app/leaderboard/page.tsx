@@ -85,9 +85,9 @@ export default async function LeaderboardPage() {
                   <a
                     key={sug.id}
                     href={`/words/${sug.word_submission_id}`}
-                    className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition-colors hover:border-neutral-300 dark:border-white/[0.06] dark:bg-white/[0.03] dark:hover:border-white/[0.1]"
+                    className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition-colors hover:border-neutral-300 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md dark:hover:border-[#5E6AD2]/40"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-xs font-bold text-neutral-600 dark:bg-white/[0.06] dark:text-neutral-400">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-xs font-bold text-neutral-600 dark:bg-white/[0.1] dark:text-neutral-300">
                       {i + 1}
                     </span>
                     <div className="min-w-0 flex-1">
@@ -129,9 +129,9 @@ export default async function LeaderboardPage() {
               {sortedContributors.map((c, i) => (
                 <div
                   key={c.id}
-                  className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
+                  className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md"
                 >
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-xs font-bold text-neutral-600 dark:bg-white/[0.06] dark:text-neutral-400">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-xs font-bold text-neutral-600 dark:bg-white/[0.1] dark:text-neutral-300">
                     {i + 1}
                   </span>
                   <div className="flex items-center gap-2 flex-1">

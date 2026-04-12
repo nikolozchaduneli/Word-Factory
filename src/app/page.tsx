@@ -12,9 +12,9 @@ export default async function Home() {
   return (
     <div className="relative flex flex-1 flex-col items-center justify-center overflow-hidden px-4 py-24">
       {/* Aurora blobs */}
-      <div className="aurora-blob w-[500px] h-[500px] bg-indigo-500/30 dark:bg-indigo-600/20 -top-40 -right-20" />
-      <div className="aurora-blob w-[400px] h-[400px] bg-purple-500/20 dark:bg-purple-600/15 top-20 -left-40" style={{ animationDelay: "-4s" }} />
-      <div className="aurora-blob w-[300px] h-[300px] bg-pink-500/20 dark:bg-pink-600/10 bottom-0 right-1/4" style={{ animationDelay: "-8s" }} />
+      <div className="aurora-blob w-[600px] h-[600px] bg-indigo-400/40 dark:bg-indigo-500/30 -top-48 -right-32" />
+      <div className="aurora-blob w-[500px] h-[500px] bg-purple-400/30 dark:bg-purple-500/25 top-20 -left-48" style={{ animationDelay: "-4s" }} />
+      <div className="aurora-blob w-[400px] h-[400px] bg-pink-400/25 dark:bg-pink-500/20 bottom-0 right-1/4" style={{ animationDelay: "-8s" }} />
 
       <div className="relative max-w-2xl text-center space-y-6">
         <h1 className="text-5xl font-bold tracking-tight">
@@ -39,7 +39,7 @@ export default async function Home() {
           </a>
           <a
             href="/words/new"
-            className="rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 transition-all hover:bg-neutral-100 dark:border-white/[0.1] dark:text-neutral-300 dark:hover:bg-white/[0.05]"
+            className="rounded-lg border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-700 transition-all hover:bg-neutral-100 dark:border-white/[0.1] dark:text-neutral-300 dark:hover:bg-white/[0.1]"
           >
             Submit a Word
           </a>

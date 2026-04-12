@@ -73,12 +73,12 @@ export default function ReportButton({
   return (
     <form
       onSubmit={handleReport}
-      className="absolute right-0 top-8 z-10 w-56 rounded-lg border border-neutral-200 bg-white p-3 shadow-xl dark:border-white/[0.06] dark:bg-white/[0.03] dark:shadow-[0_0_40px_rgba(0,0,0,0.5)]"
+      className="absolute right-0 top-8 z-10 w-56 rounded-lg border border-neutral-200 bg-white p-3 shadow-xl dark:border-white/[0.1] dark:bg-[#1a1a2e] dark:shadow-[0_0_40px_rgba(0,0,0,0.5)]"
     >
       <select
         name="reason"
         required
-        className="w-full rounded border border-neutral-200 px-2 py-1 text-xs dark:border-white/[0.08] dark:bg-white/[0.03]"
+        className="w-full rounded border border-neutral-200 px-2 py-1 text-xs dark:border-white/[0.12] dark:bg-white/[0.06]"
       >
         {REASONS.map((r) => (
           <option key={r.value} value={r.value}>
@@ -89,7 +89,7 @@ export default function ReportButton({
       <input
         name="description"
         placeholder="Details (optional)"
-        className="mt-2 w-full rounded border border-neutral-200 px-2 py-1 text-xs dark:border-white/[0.08] dark:bg-white/[0.03]"
+        className="mt-2 w-full rounded border border-neutral-200 px-2 py-1 text-xs dark:border-white/[0.12] dark:bg-white/[0.06]"
       />
       <div className="mt-2 flex gap-1">
         <button
@@ -102,7 +102,7 @@ export default function ReportButton({
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="rounded bg-neutral-200 px-2 py-1 text-xs dark:bg-white/[0.06]"
+          className="rounded bg-neutral-200 px-2 py-1 text-xs dark:bg-white/[0.1]"
         >
           Cancel
         </button>

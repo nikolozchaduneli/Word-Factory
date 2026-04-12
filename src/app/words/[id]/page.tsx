@@ -66,7 +66,7 @@ export default async function WordDetailPage({
         &larr; Back to words
       </a>
 
-      <div className="mt-6 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.06] dark:bg-white/[0.03]">
+      <div className="mt-6 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.1] dark:bg-white/[0.06] dark:backdrop-blur-md">
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-3xl font-bold">{word.foreign_word}</h1>
@@ -90,7 +90,7 @@ export default async function WordDetailPage({
         </p>
 
         {word.context_example && (
-          <div className="mt-4 rounded-lg bg-neutral-50 p-3 dark:bg-white/[0.03]">
+          <div className="mt-4 rounded-lg bg-neutral-50 p-3 dark:bg-white/[0.06]">
             <p className="text-sm italic text-neutral-600 dark:text-neutral-400">
               &ldquo;{word.context_example}&rdquo;
             </p>

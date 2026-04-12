@@ -11,11 +11,16 @@ export default async function Home() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-4 py-24">
-      <div className="max-w-2xl text-center space-y-6">
-        <h1 className="text-5xl font-bold tracking-tight">
-          Word Factory
-        </h1>
-        <p className="text-xl au-text-secondary">
+      <div className="max-w-2xl text-center space-y-8">
+        <div className="space-y-3">
+          <p className="text-xs font-medium uppercase tracking-[0.25em] au-text-muted">
+            A living lexicon
+          </p>
+          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight leading-[1.1]">
+            Word Factory
+          </h1>
+        </div>
+        <p className="text-lg sm:text-xl au-text-secondary max-w-xl mx-auto leading-relaxed">
           {TARGET_LANG.ui.heroText}
         </p>
 

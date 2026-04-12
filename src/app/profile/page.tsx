@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import type { WordSubmission, Profile } from "@/types/database";
+import { TARGET_LANG } from "@/lib/language";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -22,6 +23,7 @@ export default async function ProfilePage() {
       .from("word_submissions")
       .select("*")
       .eq("user_id", user.id)
+      .eq("target_language", TARGET_LANG.code)
       .order("created_at", { ascending: false })
       .returns<WordSubmission[]>(),
   ]);

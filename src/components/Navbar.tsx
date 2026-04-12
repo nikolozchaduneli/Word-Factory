@@ -1,4 +1,5 @@
 import AuthButton from "./AuthButton";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   return (
@@ -29,7 +30,10 @@ export default function Navbar() {
             </a>
           </div>
         </div>
-        <AuthButton />
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <AuthButton />
+        </div>
       </nav>
     </header>
   );

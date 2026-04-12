@@ -75,7 +75,7 @@ export default async function WordDetailPage({
             </span>
           </div>
           <span
-            className={`rounded-full px-2.5 py-1 text-xs font-medium ${
+            className={`rounded px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide ${
               word.status === "approved"
                 ? "au-status-approved"
                 : "au-status-pending"

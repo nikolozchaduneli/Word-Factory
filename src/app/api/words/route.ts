@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     .from("word_submissions")
     .insert({
       user_id: user.id,
-      foreign_word: parsed.data.foreign_word,
+      foreign_word: parsed.data.foreign_word.charAt(0).toUpperCase() + parsed.data.foreign_word.slice(1),
       source_language: parsed.data.source_language,
       target_language: TARGET_LANG.code,
       definition: parsed.data.definition,

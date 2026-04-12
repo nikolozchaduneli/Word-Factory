@@ -3,11 +3,11 @@
 /* ── Editorial Design Tokens ── */
 :root {
   /* Surfaces */
-  --bg:             #FAF9F6;
+  --bg:             #F5F1EB;
   --fg:             #2C2520;
-  --surface:        #FFFFFF;
-  --surface-hover:  #F5F3EF;
-  --elevated:       #FFFFFF;
+  --surface:        #FAF8F5;
+  --surface-hover:  #F0ECE5;
+  --elevated:       #FAF8F5;
 
   /* Text */
   --text:           #2C2520;
@@ -15,8 +15,8 @@
   --text-muted:     #A89F97;
 
   /* Brand / accent */
-  --primary:        #8B2252;
-  --primary-hover:  #741D45;
+  --primary:        #9A3412;
+  --primary-hover:  #7C2D12;
   --primary-glow:   transparent;
 
   /* Borders */
@@ -25,22 +25,21 @@
   --border-active:  var(--primary);
 
   /* Inputs */
-  --input-bg:       #FFFFFF;
-  --input-border:   #E8E2DA;
-  --ring:           rgba(139, 34, 82, 0.2);
+  --input-bg:       #FAF8F5;
+  --input-border:   #E0D8CE;
+  --ring:           rgba(154, 52, 18, 0.2);
 
   /* Misc */
   --muted-bg:       #F5F3EF;
   --skeleton:       #E8E2DA;
   --skeleton-light: #F5F3EF;
 
-  /* Ambient background — very subtle warm wash */
-  --ambient-blob-1: rgba(180, 140, 100, 0.06);
-  --ambient-blob-2: rgba(139, 34, 82, 0.04);
+  /* Ambient atmosphere */
+  --ambient-vignette: rgba(140, 110, 80, 0.1);
+  --ambient-glow:     rgba(154, 52, 18, 0.05);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
+.dark {
     --bg:             #1A1814;
     --fg:             #E8E2DA;
     --surface:        #231F1B;
@@ -51,8 +50,8 @@
     --text-secondary: #B5AA9E;
     --text-muted:     #7A7068;
 
-    --primary:        #C2596E;
-    --primary-hover:  #D4687D;
+    --primary:        #D4825A;
+    --primary-hover:  #E0956D;
     --primary-glow:   transparent;
 
     --border:         #3A342E;
@@ -61,15 +60,14 @@
 
     --input-bg:       #231F1B;
     --input-border:   #3A342E;
-    --ring:           rgba(194, 89, 110, 0.2);
+    --ring:           rgba(212, 130, 90, 0.2);
 
     --muted-bg:       #2C2722;
     --skeleton:       #3A342E;
     --skeleton-light: #2C2722;
 
-    --ambient-blob-1: rgba(180, 140, 100, 0.08);
-    --ambient-blob-2: rgba(194, 89, 110, 0.05);
-  }
+    --ambient-vignette: rgba(0, 0, 0, 0.3);
+    --ambient-glow:     rgba(212, 130, 90, 0.06);
 }
 
 /* ── Tailwind theme bridge ── */
@@ -114,6 +112,16 @@ h1, h2, h3 {
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
+select.au-input {
+  padding-right: 1.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A89F97' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.4rem center;
+  background-size: 1rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
 .au-input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--ring);
@@ -147,68 +155,53 @@ h1, h2, h3 {
   border-color: var(--border-hover);
 }
 
-/* Ambient background — very subtle warm wash */
+/* Ambient atmosphere — vignette + center warmth */
 .au-ambient {
   position: fixed;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
-  background: radial-gradient(
-    ellipse 60% 50% at 50% 40%,
-    var(--ambient-blob-1),
-    transparent 80%
-  );
+  /* Warm vignette: darkens/warms the edges, open center */
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 50% 40%,
+      transparent 40%,
+      var(--ambient-vignette) 100%
+    );
 }
-.au-ambient::before,
+
+/* Subtle center glow — warm focus behind hero content */
 .au-ambient::after {
   content: "";
   position: absolute;
+  width: 50vw;
+  height: 50vh;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 50%;
-  filter: blur(100px);
-  animation: editorial-drift 20s ease-in-out infinite;
-}
-.au-ambient::before {
-  width: 45vw;
-  height: 45vw;
-  min-width: 500px;
-  min-height: 500px;
-  background: var(--ambient-blob-1);
-  top: -15%;
-  right: -10%;
-}
-.au-ambient::after {
-  width: 40vw;
-  height: 40vw;
-  min-width: 450px;
-  min-height: 450px;
-  background: var(--ambient-blob-2);
-  bottom: -15%;
-  left: -10%;
-  animation-delay: -10s;
+  background: radial-gradient(
+    ellipse at center,
+    var(--ambient-glow),
+    transparent 70%
+  );
+  filter: blur(60px);
 }
 
-/* Third blob */
+/* Grain texture overlay — editorial print feel */
 .au-ambient-center {
   position: absolute;
-  width: 35vw;
-  height: 35vw;
-  min-width: 350px;
-  min-height: 350px;
-  border-radius: 50%;
-  background: var(--ambient-blob-2);
-  opacity: 0.5;
-  filter: blur(100px);
-  top: 40%;
-  left: 30%;
-  animation: editorial-drift 20s ease-in-out infinite;
-  animation-delay: -5s;
+  inset: 0;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
 }
-
-@keyframes editorial-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(15px, -10px) scale(1.05); }
-  66% { transform: translate(-10px, 8px) scale(0.97); }
+.dark .au-ambient-center {
+  opacity: 0.35;
+  mix-blend-mode: soft-light;
 }
 
 /* ── Utility: text colors ── */
@@ -218,21 +211,19 @@ h1, h2, h3 {
 
 /* ── Navbar ── */
 .au-navbar {
-  background: rgba(250, 249, 246, 0.9);
+  background: rgba(245, 241, 235, 0.9);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-@media (prefers-color-scheme: dark) {
-  .au-navbar {
-    background: rgba(26, 24, 20, 0.9);
-  }
+.dark .au-navbar {
+  background: rgba(26, 24, 20, 0.9);
 }
 
 /* ── Model badge ── */
 .au-badge-claude {
-  background: rgba(139, 34, 82, 0.12);
-  color: #C2596E;
+  background: rgba(154, 52, 18, 0.12);
+  color: #D4825A;
 }
 .au-badge-gpt {
   background: rgba(34, 120, 60, 0.12);
@@ -248,40 +239,36 @@ h1, h2, h3 {
 }
 
 /* Light mode badge overrides */
-@media not (prefers-color-scheme: dark) {
-  .au-badge-claude {
-    background: #F9E8EE;
-    color: #8B2252;
-  }
-  .au-badge-gpt {
-    background: #DCFCE7;
-    color: #16A34A;
-  }
-  .au-badge-gemini {
-    background: #DBEAFE;
-    color: #2563EB;
-  }
-  .au-badge-default {
-    background: #F5F3EF;
-    color: #6B5E54;
-  }
+:root:not(.dark) .au-badge-claude {
+  background: #FBE9E0;
+  color: #9A3412;
+}
+:root:not(.dark) .au-badge-gpt {
+  background: #DCFCE7;
+  color: #16A34A;
+}
+:root:not(.dark) .au-badge-gemini {
+  background: #DBEAFE;
+  color: #2563EB;
+}
+:root:not(.dark) .au-badge-default {
+  background: #F5F3EF;
+  color: #6B5E54;
 }
 
 /* ── Status badges ── */
 .au-status-approved {
-  background: rgba(34, 150, 60, 0.12);
-  color: #4ADE80;
+  background: rgba(45, 95, 61, 0.15);
+  color: #7CB88A;
 }
 .au-status-pending {
-  background: rgba(180, 140, 20, 0.12);
-  color: #FACC15;
+  background: rgba(160, 120, 40, 0.15);
+  color: #C4A44A;
 }
 .au-status-rejected {
-  background: rgba(200, 50, 50, 0.12);
-  color: #F87171;
+  background: rgba(160, 50, 50, 0.15);
+  color: #C87070;
 }
-@media not (prefers-color-scheme: dark) {
-  .au-status-approved { background: #DCFCE7; color: #15803D; }
-  .au-status-pending  { background: #FEF9C3; color: #A16207; }
-  .au-status-rejected { background: #FEE2E2; color: #B91C1C; }
-}
+:root:not(.dark) .au-status-approved { background: #E8F0EA; color: #3D6B4A; }
+:root:not(.dark) .au-status-pending  { background: #F2EDDF; color: #8A6D20; }
+:root:not(.dark) .au-status-rejected { background: #F2E4E4; color: #944040; }

@@ -16,7 +16,7 @@ export async function generateGemini(
   const userPrompt = buildUserPrompt(foreignWord, definition, contextExample);
 
   const response = await client.chat.completions.create({
-    model: "gemini-3.1-pro",
+    model: "gemini-3.1-pro-preview",
     max_tokens: 2048,
     response_format: { type: "json_object" },
     messages: [
@@ -32,5 +32,5 @@ export async function generateGemini(
 
   const suggestions = parseJsonResponse(text);
 
-  return { provider: "gemini-3.1-pro", suggestions, tokensUsed };
+  return { provider: "gemini-3.1-pro-preview", suggestions, tokensUsed };
 }

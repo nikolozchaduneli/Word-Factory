@@ -11,7 +11,7 @@ const MODEL_BADGES: Record<string, { label: string; className: string }> = {
     className:
       "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
   },
-  "gemini-3.1-pro": {
+  "gemini-3.1-pro-preview": {
     label: "Gemini",
     className:
       "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",

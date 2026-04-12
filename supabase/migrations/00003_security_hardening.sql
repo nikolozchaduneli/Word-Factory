@@ -19,7 +19,7 @@ BEGIN
 
   -- Count existing requests within the window
   SELECT COUNT(*) INTO v_count
-  FROM rate_limits
+  FROM public.rate_limits
   WHERE user_id = p_user_id
     AND action_type = p_action_type
     AND window_start >= v_window_start;
@@ -30,7 +30,7 @@ BEGIN
   END IF;
 
   -- Insert atomically within the same transaction
-  INSERT INTO rate_limits (user_id, action_type, window_start)
+  INSERT INTO public.rate_limits (user_id, action_type, window_start)
   VALUES (p_user_id, p_action_type, now());
 
   RETURN QUERY SELECT TRUE, v_count + 1;

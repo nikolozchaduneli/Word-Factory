@@ -7,9 +7,10 @@ export async function generateGPT(
   definition: string,
   contextExample?: string | null,
 ): Promise<ModelResult | null> {
-  if (!process.env.OPENAI_API_KEY?.trim()) return null;
+  const apiKey = process.env.WF_OPENAI_API_KEY?.trim();
+  if (!apiKey) return null;
 
-  const client = new OpenAI();
+  const client = new OpenAI({ apiKey });
   const userPrompt = buildUserPrompt(foreignWord, definition, contextExample);
 
   const response = await client.chat.completions.create({

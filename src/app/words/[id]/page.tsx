@@ -61,16 +61,16 @@ export default async function WordDetailPage({
     <div className="mx-auto max-w-3xl px-4 py-12">
       <a
         href="/words"
-        className="text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
+        className="text-sm text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
       >
         &larr; Back to words
       </a>
 
-      <div className="mt-6 rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="mt-6 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.06] dark:bg-white/[0.03]">
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-3xl font-bold">{word.foreign_word}</h1>
-            <span className="text-sm text-zinc-400 uppercase">
+            <span className="text-sm text-neutral-400 dark:text-[#8A8F98] uppercase">
               {word.source_language}
             </span>
           </div>
@@ -85,19 +85,19 @@ export default async function WordDetailPage({
           </span>
         </div>
 
-        <p className="mt-4 text-zinc-700 dark:text-zinc-300">
+        <p className="mt-4 text-neutral-700 dark:text-neutral-300">
           {word.definition}
         </p>
 
         {word.context_example && (
-          <div className="mt-4 rounded-lg bg-zinc-50 p-3 dark:bg-zinc-800">
-            <p className="text-sm italic text-zinc-600 dark:text-zinc-400">
+          <div className="mt-4 rounded-lg bg-neutral-50 p-3 dark:bg-white/[0.03]">
+            <p className="text-sm italic text-neutral-600 dark:text-neutral-400">
               &ldquo;{word.context_example}&rdquo;
             </p>
           </div>
         )}
 
-        <div className="mt-4 flex items-center gap-2 text-sm text-zinc-500">
+        <div className="mt-4 flex items-center gap-2 text-sm text-neutral-500">
           {word.profiles?.avatar_url && (
             <img
               src={word.profiles.avatar_url}

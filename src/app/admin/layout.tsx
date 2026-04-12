@@ -27,17 +27,17 @@ export default async function AdminLayout({
 
   return (
     <div>
-      <div className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+      <div className="border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-white/[0.06] dark:bg-[#050506]/80">
         <div className="mx-auto flex max-w-5xl gap-4 px-4 py-2">
           <a
             href="/admin/moderation"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            className="text-sm font-medium text-neutral-500 hover:text-neutral-900 dark:text-[#8A8F98] dark:hover:text-white transition-colors"
           >
             Moderation
           </a>
           <a
             href="/admin/spend"
-            className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            className="text-sm font-medium text-neutral-500 hover:text-neutral-900 dark:text-[#8A8F98] dark:hover:text-white transition-colors"
           >
             Spend
           </a>

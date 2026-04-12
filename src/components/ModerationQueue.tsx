@@ -67,13 +67,13 @@ export default function ModerationQueue({
           Flagged Content ({flags.length})
         </h2>
         {flags.length === 0 ? (
-          <p className="text-sm text-zinc-500">No open flags.</p>
+          <p className="text-sm text-neutral-500">No open flags.</p>
         ) : (
           <div className="space-y-2">
             {flags.map((flag) => (
               <div
                 key={flag.id}
-                className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
               >
                 <div>
                   <span className="text-sm font-medium">
@@ -83,11 +83,11 @@ export default function ModerationQueue({
                     {flag.reason}
                   </span>
                   {flag.description && (
-                    <p className="text-xs text-zinc-500 mt-1">
+                    <p className="text-xs text-neutral-500 mt-1">
                       {flag.description}
                     </p>
                   )}
-                  <p className="text-xs text-zinc-400 mt-1">
+                  <p className="text-xs text-neutral-400 mt-1">
                     Reported by {flag.profiles?.display_name ?? "Unknown"}
                   </p>
                 </div>
@@ -102,7 +102,7 @@ export default function ModerationQueue({
                   <button
                     onClick={() => handleAction("flag", flag.id, "dismiss")}
                     disabled={loading === flag.id}
-                    className="rounded bg-zinc-200 px-2.5 py-1 text-xs font-medium text-zinc-700 hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300"
+                    className="rounded bg-neutral-200 px-2.5 py-1 text-xs font-medium text-neutral-700 hover:bg-neutral-300 dark:bg-white/[0.06] dark:text-neutral-300"
                   >
                     Dismiss
                   </button>
@@ -119,20 +119,20 @@ export default function ModerationQueue({
           Pending Submissions ({pendingWords.length})
         </h2>
         {pendingWords.length === 0 ? (
-          <p className="text-sm text-zinc-500">No pending submissions.</p>
+          <p className="text-sm text-neutral-500">No pending submissions.</p>
         ) : (
           <div className="space-y-2">
             {pendingWords.map((word) => (
               <div
                 key={word.id}
-                className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
               >
                 <div className="min-w-0 flex-1">
                   <span className="font-medium">{word.foreign_word}</span>
-                  <p className="text-sm text-zinc-500 truncate">
+                  <p className="text-sm text-neutral-500 truncate">
                     {word.definition}
                   </p>
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-neutral-400">
                     by {word.profiles.display_name}
                   </p>
                 </div>
@@ -168,22 +168,22 @@ export default function ModerationQueue({
           Pending User Suggestions ({pendingSuggestions.length})
         </h2>
         {pendingSuggestions.length === 0 ? (
-          <p className="text-sm text-zinc-500">No pending suggestions.</p>
+          <p className="text-sm text-neutral-500">No pending suggestions.</p>
         ) : (
           <div className="space-y-2">
             {pendingSuggestions.map((sug) => (
               <div
                 key={sug.id}
-                className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
+                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
               >
                 <div className="min-w-0 flex-1">
                   <span className="font-medium">{sug.suggested_word}</span>
                   {sug.reasoning && (
-                    <p className="text-sm text-zinc-500 truncate">
+                    <p className="text-sm text-neutral-500 truncate">
                       {sug.reasoning}
                     </p>
                   )}
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-neutral-400">
                     by {sug.profiles.display_name}
                   </p>
                 </div>

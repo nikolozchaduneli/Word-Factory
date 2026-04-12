@@ -65,7 +65,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm space-y-6 px-4">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight">Word Factory</h1>
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-2 text-neutral-600 dark:text-neutral-400">
             Sign in to submit words and vote on suggestions
           </p>
         </div>
@@ -77,7 +77,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-lg border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200"
+            className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.08] dark:bg-white/[0.03] dark:text-neutral-200 transition-all"
           />
           <input
             type="password"
@@ -86,7 +86,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            className="w-full rounded-lg border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200"
+            className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2]/30 dark:border-white/[0.08] dark:bg-white/[0.03] dark:text-neutral-200 transition-all"
           />
 
           {error && (
@@ -96,7 +96,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-zinc-900 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+            className="w-full rounded-lg bg-[#5E6AD2] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#6872D9] disabled:opacity-50"
           >
             {loading
               ? "..."
@@ -111,7 +111,7 @@ export default function LoginPage() {
               setIsSignUp(!isSignUp);
               setError("");
             }}
-            className="w-full text-center text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
+            className="w-full text-center text-sm text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
           >
             {isSignUp
               ? "Already have an account? Sign in"
@@ -121,10 +121,10 @@ export default function LoginPage() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-zinc-200 dark:border-zinc-700" />
+            <div className="w-full border-t border-neutral-200 dark:border-white/[0.08]" />
           </div>
           <div className="relative flex justify-center text-xs">
-            <span className="bg-white px-2 text-zinc-500 dark:bg-zinc-950 dark:text-zinc-400">
+            <span className="bg-neutral-50 px-2 text-neutral-500 dark:bg-[#050506] dark:text-neutral-400">
               or
             </span>
           </div>
@@ -132,7 +132,7 @@ export default function LoginPage() {
 
         <button
           onClick={handleGoogleLogin}
-          className="flex w-full items-center justify-center gap-3 rounded-lg border border-zinc-300 bg-white px-4 py-3 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-zinc-50 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
+          className="flex w-full items-center justify-center gap-3 rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm font-medium text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50 dark:border-white/[0.1] dark:bg-white/[0.03] dark:text-neutral-200 dark:hover:bg-white/[0.05]"
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path
@@ -155,7 +155,7 @@ export default function LoginPage() {
           Continue with Google
         </button>
 
-        <p className="text-center text-xs text-zinc-500 dark:text-zinc-400">
+        <p className="text-center text-xs text-neutral-500 dark:text-neutral-400">
           {TARGET_LANG.ui.loginFooter}
         </p>
       </div>

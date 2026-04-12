@@ -51,7 +51,7 @@ export default async function WordsPage({
         <h1 className="text-2xl font-bold">Browse Words</h1>
         <a
           href="/words/new"
-          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="rounded-lg bg-[#5E6AD2] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#6872D9]"
         >
           Submit Word
         </a>
@@ -69,8 +69,8 @@ export default async function WordsPage({
       </div>
 
       {!words || words.length === 0 ? (
-        <div className="rounded-lg border border-zinc-200 bg-white p-12 text-center dark:border-zinc-800 dark:bg-zinc-900">
-          <p className="text-zinc-500">
+        <div className="rounded-lg border border-neutral-200 bg-white p-12 text-center dark:border-white/[0.06] dark:bg-white/[0.03]">
+          <p className="text-neutral-500">
             {search
               ? `No words found matching "${search}"`
               : "No words submitted yet. Be the first!"}
@@ -89,18 +89,18 @@ export default async function WordsPage({
           {page > 1 && (
             <a
               href={`/words?page=${page - 1}${search ? `&search=${search}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-              className="rounded-lg border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+              className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm hover:bg-neutral-100 dark:border-white/[0.1] dark:hover:bg-white/[0.05]"
             >
               Previous
             </a>
           )}
-          <span className="text-sm text-zinc-500">
+          <span className="text-sm text-neutral-500">
             Page {page} of {totalPages}
           </span>
           {page < totalPages && (
             <a
               href={`/words?page=${page + 1}${search ? `&search=${search}` : ""}${sort !== "newest" ? `&sort=${sort}` : ""}`}
-              className="rounded-lg border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-800"
+              className="rounded-lg border border-neutral-300 px-3 py-1.5 text-sm hover:bg-neutral-100 dark:border-white/[0.1] dark:hover:bg-white/[0.05]"
             >
               Next
             </a>

@@ -2,7 +2,7 @@ import AuthButton from "./AuthButton";
 
 export default function Navbar() {
   return (
-    <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+    <header className="border-b border-neutral-200 bg-white/80 backdrop-blur-md dark:border-white/[0.06] dark:bg-[#050506]/80">
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
         <div className="flex items-center gap-6">
           <a href="/" className="text-xl font-bold tracking-tight">
@@ -11,19 +11,19 @@ export default function Navbar() {
           <div className="hidden items-center gap-4 sm:flex">
             <a
               href="/words"
-              className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+              className="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-[#8A8F98] dark:hover:text-white"
             >
               Browse
             </a>
             <a
               href="/words/new"
-              className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+              className="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-[#8A8F98] dark:hover:text-white"
             >
               Submit
             </a>
             <a
               href="/leaderboard"
-              className="text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+              className="text-sm text-neutral-500 transition-colors hover:text-neutral-900 dark:text-[#8A8F98] dark:hover:text-white"
             >
               Leaderboard
             </a>

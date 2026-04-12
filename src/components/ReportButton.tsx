@@ -44,14 +44,14 @@ export default function ReportButton({
   };
 
   if (done) {
-    return <span className="text-xs text-zinc-400">Reported</span>;
+    return <span className="text-xs text-neutral-400">Reported</span>;
   }
 
   if (!open) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="text-xs text-zinc-400 hover:text-red-500"
+        className="text-xs text-neutral-400 hover:text-red-500"
         title="Report"
       >
         <svg
@@ -73,12 +73,12 @@ export default function ReportButton({
   return (
     <form
       onSubmit={handleReport}
-      className="absolute right-0 top-8 z-10 w-56 rounded-lg border border-zinc-200 bg-white p-3 shadow-lg dark:border-zinc-700 dark:bg-zinc-900"
+      className="absolute right-0 top-8 z-10 w-56 rounded-lg border border-neutral-200 bg-white p-3 shadow-xl dark:border-white/[0.06] dark:bg-white/[0.03] dark:shadow-[0_0_40px_rgba(0,0,0,0.5)]"
     >
       <select
         name="reason"
         required
-        className="w-full rounded border border-zinc-300 px-2 py-1 text-xs dark:border-zinc-700 dark:bg-zinc-800"
+        className="w-full rounded border border-neutral-200 px-2 py-1 text-xs dark:border-white/[0.08] dark:bg-white/[0.03]"
       >
         {REASONS.map((r) => (
           <option key={r.value} value={r.value}>
@@ -89,7 +89,7 @@ export default function ReportButton({
       <input
         name="description"
         placeholder="Details (optional)"
-        className="mt-2 w-full rounded border border-zinc-300 px-2 py-1 text-xs dark:border-zinc-700 dark:bg-zinc-800"
+        className="mt-2 w-full rounded border border-neutral-200 px-2 py-1 text-xs dark:border-white/[0.08] dark:bg-white/[0.03]"
       />
       <div className="mt-2 flex gap-1">
         <button
@@ -102,7 +102,7 @@ export default function ReportButton({
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="rounded bg-zinc-200 px-2 py-1 text-xs dark:bg-zinc-700"
+          className="rounded bg-neutral-200 px-2 py-1 text-xs dark:bg-white/[0.06]"
         >
           Cancel
         </button>

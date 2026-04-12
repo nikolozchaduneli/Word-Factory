@@ -64,7 +64,7 @@ export default function VoteButtons({
         className={`rounded p-1 transition-colors ${
           currentVote === 1
             ? "text-green-600 dark:text-green-400"
-            : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+            : "text-neutral-400 dark:text-neutral-600 hover:text-neutral-600 dark:hover:text-neutral-400"
         }`}
         title="Upvote"
       >
@@ -87,7 +87,7 @@ export default function VoteButtons({
             ? "text-green-600 dark:text-green-400"
             : score < 0
               ? "text-red-600 dark:text-red-400"
-              : "text-zinc-500"
+              : "text-neutral-500"
         }`}
       >
         {score}
@@ -98,7 +98,7 @@ export default function VoteButtons({
         className={`rounded p-1 transition-colors ${
           currentVote === -1
             ? "text-red-600 dark:text-red-400"
-            : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+            : "text-neutral-400 dark:text-neutral-600 hover:text-neutral-600 dark:hover:text-neutral-400"
         }`}
         title="Downvote"
       >

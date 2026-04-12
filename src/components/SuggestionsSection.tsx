@@ -49,7 +49,7 @@ export default function SuggestionsSection({
     <button
       onClick={handleGenerate}
       disabled={loading}
-      className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-500 disabled:opacity-50"
+      className="rounded-lg bg-[#5E6AD2] px-4 py-2 text-sm font-medium text-white shadow-[0_0_15px_rgba(94,106,210,0.2)] transition-colors hover:bg-[#6872D9] disabled:opacity-50"
     >
       {loading ? "Generating..." : "Generate AI Suggestions"}
     </button>
@@ -69,32 +69,32 @@ export default function SuggestionsSection({
       )}
 
       {loading && (
-        <div className="mb-3 rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+        <div className="mb-3 rounded-lg border border-neutral-200 bg-white p-6 dark:border-white/[0.06] dark:bg-white/[0.03]">
           <div className="flex items-center gap-3">
             <div className="flex gap-1">
-              <span className="h-2 w-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: "0ms" }} />
-              <span className="h-2 w-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: "150ms" }} />
-              <span className="h-2 w-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: "300ms" }} />
+              <span className="h-2 w-2 rounded-full bg-[#5E6AD2] animate-bounce" style={{ animationDelay: "0ms" }} />
+              <span className="h-2 w-2 rounded-full bg-[#5E6AD2] animate-bounce" style={{ animationDelay: "150ms" }} />
+              <span className="h-2 w-2 rounded-full bg-[#5E6AD2] animate-bounce" style={{ animationDelay: "300ms" }} />
             </div>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            <p className="text-sm text-neutral-500 dark:text-neutral-400">
               {TARGET_LANG.ui.generatingText}
             </p>
           </div>
           <div className="mt-4 space-y-3">
-            <div className="h-4 w-3/4 animate-pulse rounded bg-zinc-200 dark:bg-zinc-700" />
-            <div className="h-3 w-full animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
-            <div className="h-4 w-2/3 animate-pulse rounded bg-zinc-200 dark:bg-zinc-700" />
-            <div className="h-3 w-5/6 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
+            <div className="h-4 w-3/4 animate-pulse rounded bg-neutral-200 dark:bg-white/[0.06]" />
+            <div className="h-3 w-full animate-pulse rounded bg-neutral-100 dark:bg-white/[0.03]" />
+            <div className="h-4 w-2/3 animate-pulse rounded bg-neutral-200 dark:bg-white/[0.06]" />
+            <div className="h-3 w-5/6 animate-pulse rounded bg-neutral-100 dark:bg-white/[0.03]" />
           </div>
         </div>
       )}
 
       {!loading && suggestions.length === 0 && (
-        <div className="rounded-lg border border-dashed border-zinc-300 p-8 text-center dark:border-zinc-700">
-          <p className="text-zinc-500 mb-3">No suggestions yet.</p>
+        <div className="rounded-lg border border-dashed border-neutral-300 p-8 text-center dark:border-white/[0.1]">
+          <p className="text-neutral-500 mb-3">No suggestions yet.</p>
           {generateButton}
           {!isLoggedIn && (
-            <p className="text-sm text-zinc-400 mt-2">
+            <p className="text-sm text-neutral-400 mt-2">
               <a href="/login" className="underline">Sign in</a> to generate AI suggestions
             </p>
           )}
@@ -112,7 +112,7 @@ export default function SuggestionsSection({
                   initialVote={userVotes[sug.id] ?? null}
                 />
               ) : (
-                <span className="text-sm font-medium text-zinc-500">
+                <span className="text-sm font-medium text-neutral-500">
                   {sug.score > 0 ? "+" : ""}{sug.score}
                 </span>
               )}

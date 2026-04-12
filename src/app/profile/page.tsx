@@ -41,7 +41,7 @@ export default async function ProfilePage() {
           <h1 className="text-2xl font-bold">
             {profile?.display_name ?? "Anonymous"}
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-neutral-500">
             Member since{" "}
             {new Date(profile?.created_at ?? "").toLocaleDateString("en-US", {
               year: "numeric",
@@ -57,13 +57,13 @@ export default async function ProfilePage() {
         </h2>
 
         {!submissions || submissions.length === 0 ? (
-          <div className="rounded-lg border border-zinc-200 bg-white p-8 text-center dark:border-zinc-800 dark:bg-zinc-900">
-            <p className="text-zinc-500">
+          <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center dark:border-white/[0.06] dark:bg-white/[0.03]">
+            <p className="text-neutral-500">
               You haven&apos;t submitted any words yet.
             </p>
             <a
               href="/words/new"
-              className="mt-3 inline-block text-sm font-medium text-zinc-900 underline dark:text-zinc-100"
+              className="mt-3 inline-block text-sm font-medium text-[#5E6AD2] underline dark:text-[#818CF8]"
             >
               Submit your first word
             </a>
@@ -74,12 +74,12 @@ export default async function ProfilePage() {
               <a
                 key={sub.id}
                 href={`/words/${sub.id}`}
-                className="block rounded-lg border border-zinc-200 bg-white p-4 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+                className="block rounded-lg border border-neutral-200 bg-white p-4 transition-colors hover:border-neutral-300 dark:border-white/[0.06] dark:bg-white/[0.03] dark:hover:border-white/[0.1]"
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <span className="font-medium">{sub.foreign_word}</span>
-                    <span className="ml-2 text-xs text-zinc-400">
+                    <span className="ml-2 text-xs text-neutral-400">
                       {sub.source_language}
                     </span>
                   </div>
@@ -95,10 +95,10 @@ export default async function ProfilePage() {
                     {sub.status}
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
                   {sub.definition}
                 </p>
-                <p className="mt-2 text-xs text-zinc-400">
+                <p className="mt-2 text-xs text-neutral-400">
                   {new Date(sub.created_at).toLocaleDateString()}
                 </p>
               </a>

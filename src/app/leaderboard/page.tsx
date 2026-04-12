@@ -70,7 +70,7 @@ export default async function LeaderboardPage() {
         <section>
           <h2 className="text-lg font-semibold mb-4">Top Neologisms</h2>
           {!topSuggestions || topSuggestions.length === 0 ? (
-            <p className="text-sm text-zinc-500">
+            <p className="text-sm text-neutral-500">
               No voted suggestions yet. Be the first to vote!
             </p>
           ) : (
@@ -85,9 +85,9 @@ export default async function LeaderboardPage() {
                   <a
                     key={sug.id}
                     href={`/words/${sug.word_submission_id}`}
-                    className="flex items-center gap-3 rounded-lg border border-zinc-200 bg-white p-3 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700"
+                    className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 transition-colors hover:border-neutral-300 dark:border-white/[0.06] dark:bg-white/[0.03] dark:hover:border-white/[0.1]"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-xs font-bold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-xs font-bold text-neutral-600 dark:bg-white/[0.06] dark:text-neutral-400">
                       {i + 1}
                     </span>
                     <div className="min-w-0 flex-1">
@@ -95,11 +95,11 @@ export default async function LeaderboardPage() {
                         {sug.suggested_word}
                       </span>
                       {sug.transliteration && (
-                        <span className="ml-1 text-xs text-zinc-400">
+                        <span className="ml-1 text-xs text-neutral-400">
                           ({sug.transliteration})
                         </span>
                       )}
-                      <p className="flex items-center gap-1 text-xs text-zinc-500 truncate">
+                      <p className="flex items-center gap-1 text-xs text-neutral-500 truncate">
                         {countryCode && (
                           <img
                             src={`https://flagcdn.com/w20/${countryCode}.png`}
@@ -123,15 +123,15 @@ export default async function LeaderboardPage() {
         <section>
           <h2 className="text-lg font-semibold mb-4">Top Contributors</h2>
           {sortedContributors.length === 0 ? (
-            <p className="text-sm text-zinc-500">No contributors yet.</p>
+            <p className="text-sm text-neutral-500">No contributors yet.</p>
           ) : (
             <div className="space-y-2">
               {sortedContributors.map((c, i) => (
                 <div
                   key={c.id}
-                  className="flex items-center gap-3 rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
+                  className="flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-3 dark:border-white/[0.06] dark:bg-white/[0.03]"
                 >
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-zinc-100 text-xs font-bold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-xs font-bold text-neutral-600 dark:bg-white/[0.06] dark:text-neutral-400">
                     {i + 1}
                   </span>
                   <div className="flex items-center gap-2 flex-1">
@@ -147,7 +147,7 @@ export default async function LeaderboardPage() {
                       {c.display_name}
                     </span>
                   </div>
-                  <span className="text-sm text-zinc-500">
+                  <span className="text-sm text-neutral-500">
                     {c.count} word{c.count !== 1 ? "s" : ""}
                   </span>
                 </div>

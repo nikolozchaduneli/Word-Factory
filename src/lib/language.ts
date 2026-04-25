@@ -77,6 +77,35 @@ const LANGUAGES: Record<string, LanguageConfig> = {
       loginFooter: "By signing in, you agree to help build the Tamil lexicon",
     },
   },
+  ru: {
+    code: "ru",
+    name: "Russian",
+    htmlLang: "ru",
+    scriptName: "Russian (Cyrillic)",
+    guidelines: [
+      "Use existing Russian roots, prefixes, and suffixes where possible",
+      "Draw from Old Church Slavonic, literary Russian, or dialectal forms when appropriate",
+      "Consider compound words using Russian word-building patterns (slovoslozhenie)",
+      "Prefer Slavic-origin roots over foreign borrowings when natural alternatives exist",
+    ],
+    ui: {
+      siteTitle: "Word Factory - Russian Neologism Platform",
+      siteDescription:
+        "Submit foreign words lacking Russian equivalents, get AI-generated neologisms, and vote on the best suggestions.",
+      heroText:
+        "Help build the Russian lexicon. Submit foreign words that lack native equivalents, and let AI propose elegant Russian neologisms for the community to vote on.",
+      suggestionsHeading: "Russian Suggestions",
+      generatingText: "AI models are generating Russian neologisms...",
+      proposeButton: "+ Propose your own Russian word",
+      proposeHeading: "Propose a Russian Word",
+      proposePlaceholder: "Russian word (in Cyrillic script)",
+      submitPlaceholder:
+        "Describe the meaning of this word or concept that currently has no Russian equivalent...",
+      submitPageDescription:
+        "Submit a foreign word or concept that lacks a Russian equivalent. The community and AI will propose neologisms.",
+      loginFooter: "By signing in, you agree to help build the Russian lexicon",
+    },
+  },
 };
 
 const langCode = process.env.NEXT_PUBLIC_TARGET_LANGUAGE || "ka";
